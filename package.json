@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:s3": "next build && aws s3 sync out/ s3://$S3_BUCKET_NAME --delete",
+    "deploy:invalidate": "aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths '/*'"
   },
   "dependencies": {
     "next": "16.2.1",
