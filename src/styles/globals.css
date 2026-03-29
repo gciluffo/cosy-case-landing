@@ -1,13 +1,38 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tailwindcss";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  /* Brand accent — tertiary from app palette */
+  --color-brand-50: rgb(255 250 245);
+  --color-brand-100: rgb(255 242 229);
+  --color-brand-200: rgb(255 233 213);
+  --color-brand-300: rgb(254 209 170);
+  --color-brand-400: rgb(253 180 116);
+  --color-brand-500: rgb(251 157 75);
+  --color-brand: rgb(231 129 40);
+  --color-brand-600: rgb(215 117 31);
+  --color-brand-700: rgb(180 98 26);
+  --color-brand-800: rgb(130 73 23);
+  --color-brand-900: rgb(108 61 19);
+  --color-brand-950: rgb(84 49 18);
+
+  /* Surface / background */
+  --color-surface-0: rgb(255 255 255);
+  --color-surface-50: rgb(246 246 246);
+  --color-surface-100: rgb(242 241 241);
+  --color-surface-200: rgb(220 219 219);
+  --color-surface-dark: rgb(23 23 23);
+  --color-surface-dark-2: rgb(39 38 37);
+
+  /* Text */
+  --color-text-primary: rgb(23 23 23);
+  --color-text-secondary: rgb(64 64 64);
+  --color-text-muted: rgb(115 115 115);
+  --color-text-light: rgb(163 163 163);
+  --color-text-inverse: rgb(254 254 255);
+
+  /* Fonts */
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
 }
 
 html,
@@ -17,17 +42,13 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
@@ -35,8 +56,60 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Hero bookshelf ── */
+.bookshelf-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Hero bookshelf wave-settle animation ── */
+@keyframes waveSettle {
+  0% {
+    transform: translateY(48px);
+    opacity: 0;
   }
+  45% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-12px);
+  }
+  84% {
+    transform: translateY(6px);
+  }
+  92% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.wave-spine {
+  animation: waveSettle 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-scroll-cue {
+  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 2s;
 }
