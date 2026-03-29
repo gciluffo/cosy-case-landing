@@ -517,7 +517,7 @@ export default function Hero() {
             animationDelay: `${titleDelay}ms`,
           }}
         >
-          Your Digital Bookshelf.
+          Create Your Digital Bookshelf.
         </h1>
       </div>
 
