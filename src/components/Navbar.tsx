@@ -11,8 +11,8 @@ export default function Navbar() {
             <Image
               src="/mascot.png"
               alt="CosyCase mascot"
-              width={36}
-              height={36}
+              width={58}
+              height={58}
               className="rounded-lg"
             />
             <span

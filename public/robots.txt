@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cosycase.app/sitemap.xml
+Sitemap: https://cosycases.com/sitemap.xml

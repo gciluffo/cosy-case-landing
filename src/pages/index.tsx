@@ -2,11 +2,12 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import BookshelfShowcase from "@/components/BookshelfShowcase";
+import AppReviews from "@/components/AppReviews";
 import PromoBanner from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import type { GetStaticProps } from "next";
 
-const SITE_URL = "https://cosycase.app";
+const SITE_URL = "https://cosycases.com";
 const APP_STORE_URL = "https://apps.apple.com/app/apple-store/id6747253733";
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.gciluffo.cosycase";
@@ -164,6 +165,7 @@ export default function Home() {
         <main>
           <Hero />
           <BookshelfShowcase />
+          <AppReviews />
           <PromoBanner />
           {/* <FAQ /> */}
         </main>
