@@ -51,7 +51,7 @@ Currently only `favicon.ico` exists. Add these for full browser + PWA support:
 
 - [ ] Add site to Google Search Console: https://search.google.com/search-console/
 - [ ] Verify ownership (HTML meta tag method is easiest — add the tag to `<Head>` in `src/pages/index.tsx`)
-- [ ] Submit sitemap URL after domain is live: `https://cosycase.app/sitemap.xml`
+- [ ] Submit sitemap URL after domain is live: `https://cosycases.com/sitemap.xml`
 - [ ] Monitor Core Web Vitals and Index Coverage reports after launch
 
 ---
