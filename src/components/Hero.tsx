@@ -470,13 +470,13 @@ export default function Hero() {
   return (
     <section
       className="relative flex flex-col items-center justify-center overflow-hidden"
-      style={{ minHeight: "100svh", background: "rgb(255 250 245)" }}
+      style={{ minHeight: "100svh", background: "rgb(252 250 246)" }}
     >
       {/* Subtle warm ambient glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full opacity-[0.12] blur-3xl"
-        style={{ background: "rgb(231 129 40)" }}
+        style={{ background: "rgb(72 112 93)" }}
       />
 
       {/* ── Mobile shelf (< sm, ≤ 639px) ─────────────────────────────── */}
@@ -511,14 +511,54 @@ export default function Hero() {
       {/* ── Title ──────────────────────────────────────────────────────── */}
       <div className="mt-8 sm:mt-10 text-center px-4">
         <h1
-          className="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold text-[rgb(23_23_23)] leading-tight"
+          className="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold text-[rgb(36_36_33)] leading-tight"
           style={{
             fontFamily: "var(--font-heading)",
             animationDelay: `${titleDelay}ms`,
           }}
         >
-          Create Your Digital Bookshelf.
+          A home for every book you love.
         </h1>
+        <p
+          className="hero-title mt-3 text-sm sm:text-base text-[rgb(139_138_134)] tracking-wide"
+          style={{ animationDelay: `${titleDelay + 250}ms` }}
+        >
+          The book tracker and reading list app that looks as good as your real
+          shelf.
+        </p>
+        <div
+          className="hero-title mt-6 flex items-center justify-center gap-3 flex-wrap"
+          style={{ animationDelay: `${titleDelay + 450}ms` }}
+        >
+          <a
+            href="https://apps.apple.com/app/apple-store/id6747253733"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Download on the App Store"
+            className="transition-opacity hover:opacity-75"
+          >
+            <Image
+              src="/app-store-badge.svg"
+              alt="Download on the App Store"
+              width={130}
+              height={43}
+            />
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.gciluffo.cosycase"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Get it on Google Play"
+            className="transition-opacity hover:opacity-75"
+          >
+            <Image
+              src="/google-play-badge.svg"
+              alt="Get it on Google Play"
+              width={146}
+              height={43}
+            />
+          </a>
+        </div>
       </div>
 
       {/* ── Scroll cue ─────────────────────────────────────────────────── */}
@@ -526,7 +566,7 @@ export default function Hero() {
         className="hero-scroll-cue absolute bottom-8 flex flex-col items-center gap-1.5 opacity-0"
         aria-hidden
       >
-        <span className="text-xs tracking-widest uppercase text-[rgb(163_163_163)]">
+        <span className="text-xs tracking-widest uppercase text-[rgb(180_178_175)]">
           scroll
         </span>
         <svg
@@ -534,7 +574,7 @@ export default function Hero() {
           height="16"
           viewBox="0 0 16 16"
           fill="none"
-          className="text-[rgb(163_163_163)]"
+          className="text-[rgb(180_178_175)]"
         >
           <path
             d="M8 3v10M3 9l5 5 5-5"

@@ -108,19 +108,19 @@ export default function BookshelfShowcase() {
   };
 
   return (
-    <section id="bookshelf" className="py-20 md:py-28 bg-white">
+    <section id="bookshelf" className="py-20 md:py-28 bg-[rgb(252_250_246)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
             Visualize Your Library
           </span>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[rgb(23_23_23)] leading-tight"
+            className="text-3xl sm:text-4xl font-bold text-[rgb(36_36_33)] leading-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             The book tracking app that&apos;s{" "}
-            <em className="not-italic text-[rgb(231_129_40)]">actually fun!</em>
+            <em className="not-italic text-[rgb(72_112_93)]">actually fun!</em>
           </h2>
         </div>
 
@@ -137,34 +137,34 @@ export default function BookshelfShowcase() {
                     blockRefs.current[i] = el;
                   }}
                   onClick={() => handleBlockClick(i)}
-                  className={`text-left rounded-2xl px-6 py-5 transition-colors duration-300 border-l-4 cursor-pointer ${
+                  className={`text-left rounded-2xl px-6 py-5 transition-colors duration-300 border cursor-pointer ${
                     active
-                      ? "border-[rgb(231_129_40)] bg-[rgb(255_250_245)]"
-                      : "border-transparent hover:bg-[rgb(246_246_246)]"
+                      ? "border-[rgb(72_112_93)] bg-[rgb(240_247_243)]"
+                      : "border-transparent hover:bg-[rgb(244_242_238)]"
                   }`}
                 >
                   <span
                     className={`text-xs font-semibold tracking-widest uppercase mb-1.5 block transition-colors duration-300 ${
                       active
-                        ? "text-[rgb(231_129_40)]"
-                        : "text-[rgb(163_163_163)]"
+                        ? "text-[rgb(72_112_93)]"
+                        : "text-[rgb(180_178_175)]"
                     }`}
                   >
                     {f.label}
                   </span>
                   <h3
-                    className="text-xl font-bold mb-3 text-[rgb(23_23_23)]"
+                    className="text-xl font-bold mb-3 text-[rgb(36_36_33)]"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {f.heading}
                   </h3>
-                  <p className="text-sm text-[rgb(115_115_115)] leading-relaxed mb-4">
+                  <p className="text-sm text-[rgb(139_138_134)] leading-relaxed mb-4">
                     {f.body}
                   </p>
                   <ul className="space-y-2">
                     {f.bullets.map((b) => (
                       <li key={b} className="flex items-start gap-3">
-                        <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-[rgb(255_250_245)] border border-[rgb(254_209_170)] flex items-center justify-center">
+                        <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-[rgb(240_247_243)] border border-[rgb(216_236_225)] flex items-center justify-center">
                           <svg
                             width="10"
                             height="10"
@@ -173,14 +173,14 @@ export default function BookshelfShowcase() {
                           >
                             <path
                               d="M2 6l3 3 5-5"
-                              stroke="rgb(231 129 40)"
+                              stroke="rgb(72 112 93)"
                               strokeWidth={1.8}
                               strokeLinecap="round"
                               strokeLinejoin="round"
                             />
                           </svg>
                         </span>
-                        <span className="text-sm text-[rgb(64_64_64)]">
+                        <span className="text-sm text-[rgb(50_47_42)]">
                           {b}
                         </span>
                       </li>
@@ -198,10 +198,10 @@ export default function BookshelfShowcase() {
               <div
                 aria-hidden
                 className="absolute inset-0 -m-8 rounded-3xl opacity-10 blur-2xl"
-                style={{ background: "rgb(231 129 40)" }}
+                style={{ background: "rgb(72 112 93)" }}
               />
               {/* Phone shell */}
-              <div className="relative w-[260px] sm:w-[280px] aspect-[9/19] rounded-[36px] bg-[rgb(23_23_23)] shadow-2xl ring-1 ring-black/10 overflow-hidden p-[6px]">
+              <div className="relative w-[260px] sm:w-[280px] aspect-[9/19] rounded-[36px] bg-[rgb(17_16_14)] shadow-2xl ring-1 ring-black/10 overflow-hidden p-[6px]">
                 <div className="relative w-full h-full rounded-[30px] overflow-hidden">
                   {FEATURES.map((f, i) => (
                     <div
@@ -232,8 +232,8 @@ export default function BookshelfShowcase() {
                     aria-label={`View ${FEATURES[i].label}`}
                     className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                       i === photoIndex
-                        ? "w-6 bg-[rgb(231_129_40)]"
-                        : "w-1.5 bg-[rgb(214_211_209)] hover:bg-[rgb(180_178_177)]"
+                        ? "w-6 bg-[rgb(72_112_93)]"
+                        : "w-1.5 bg-[rgb(219_218_215)] hover:bg-[rgb(180_178_175)]"
                     }`}
                   />
                 ))}

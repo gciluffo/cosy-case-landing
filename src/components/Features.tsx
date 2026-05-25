@@ -128,45 +128,76 @@ const features = [
 ];
 
 export default function Features() {
+  // Split into two tiers to avoid the identical-card-grid pattern.
+  // Primary: the two most visually distinctive features — large cards.
+  // Secondary: supporting features — compact icon-text rows, no card borders.
+  const primary = [features[1], features[2]]; // Digital Bookshelf, AI Spine Art
+  const secondary = [features[0], features[3], features[4], features[5]]; // Track, Bulk Import, Customize, Share
+
   return (
-    <section id="features" className="py-20 md:py-28 bg-[rgb(246_246_246)]">
+    <section id="features" className="py-20 md:py-28 bg-[rgb(244_242_238)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
             Everything you need
           </span>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[rgb(23_23_23)]"
+            className="text-3xl sm:text-4xl font-bold text-[rgb(36_36_33)]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             More than just a reading log
           </h2>
-          <p className="mt-4 text-[rgb(115_115_115)] max-w-xl mx-auto">
+          <p className="mt-4 text-[rgb(139_138_134)] max-w-xl mx-auto">
             CosyCase blends powerful book tracking with a visual, creative
             bookshelf experience you won&apos;t find anywhere else.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature) => (
+        {/* Primary features — 2 large, full-height cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          {primary.map((feature) => (
             <div
               key={feature.title}
-              className="group bg-white rounded-2xl p-6 border border-[rgb(242_241_241)] hover:border-[rgb(253_180_116)] hover:shadow-lg transition-all duration-200"
+              className="bg-[rgb(252_250_246)] rounded-2xl p-8 border border-[rgb(219_218_215)]"
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[rgb(255_250_245)] text-[rgb(231_129_40)] mb-4 group-hover:bg-[rgb(255_242_229)] transition-colors">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(240_247_243)] text-[rgb(72_112_93)] mb-5">
                 {feature.icon}
               </div>
               <h3
-                className="text-lg font-bold text-[rgb(23_23_23)] mb-2"
+                className="text-xl font-bold text-[rgb(36_36_33)] mb-3"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {feature.title}
               </h3>
-              <p className="text-sm text-[rgb(115_115_115)] leading-relaxed">
+              <p className="text-[rgb(139_138_134)] leading-relaxed">
                 {feature.description}
               </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Secondary features — compact icon-text rows, no card chrome */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
+          {secondary.map((feature) => (
+            <div
+              key={feature.title}
+              className="flex items-start gap-4 py-3 border-t border-[rgb(219_218_215)]"
+            >
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[rgb(240_247_243)] text-[rgb(72_112_93)] flex items-center justify-center">
+                {feature.icon}
+              </div>
+              <div>
+                <h3
+                  className="text-base font-bold text-[rgb(36_36_33)] mb-1"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-[rgb(139_138_134)] leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

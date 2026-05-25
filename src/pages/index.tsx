@@ -2,9 +2,11 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import BookshelfShowcase from "@/components/BookshelfShowcase";
+import Features from "@/components/Features";
 import AppReviews from "@/components/AppReviews";
 import PromoBanner from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
+import FAQ from "@/components/FAQ";
 import type { GetStaticProps } from "next";
 
 const SITE_URL = "https://cosycases.com";
@@ -66,7 +68,7 @@ const faqSchema = {
       name: "How can I see what changes were made to a bookshelf?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "When looking at a bookshelf sometimes its hard to see whats changed. Thats why we maintane a change log for each activity that happened. To see the change log of a bookshelf you are following, go to the bookshelf and tap on the clock icon on the bottom.",
+        text: "When looking at a bookshelf sometimes it's hard to see what's changed. That's why we maintain a change log for each activity that happened. To see the change log of a bookshelf you are following, go to the bookshelf and tap on the clock icon on the bottom.",
       },
     },
     {
@@ -160,14 +162,15 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </Head>
-      <div className="bg-white" style={{ fontFamily: "var(--font-body)" }}>
+      <div className="bg-surface-0" style={{ fontFamily: "var(--font-body)" }}>
         <Navbar />
         <main>
           <Hero />
           <BookshelfShowcase />
+          <Features />
           <AppReviews />
           <PromoBanner />
-          {/* <FAQ /> */}
+          <FAQ />
         </main>
         <Footer />
       </div>

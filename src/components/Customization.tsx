@@ -76,20 +76,20 @@ const customizations = [
 
 export default function Customization() {
   return (
-    <section id="customize" className="py-20 md:py-28 bg-[rgb(246_246_246)]">
+    <section id="customize" className="py-20 md:py-28 bg-[rgb(244_242_238)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
             Make it yours
           </span>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[rgb(23_23_23)]"
+            className="text-3xl sm:text-4xl font-bold text-[rgb(36_36_33)]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Customize every inch of your shelf
           </h2>
-          <p className="mt-4 text-[rgb(115_115_115)] max-w-xl mx-auto">
+          <p className="mt-4 text-[rgb(139_138_134)] max-w-xl mx-auto">
             No two readers are the same — and neither are their shelves. Tweak,
             rearrange, and style your space until it feels perfectly you.
           </p>
@@ -100,25 +100,25 @@ export default function Customization() {
           {customizations.map((item) => (
             <div
               key={item.title}
-              className="bg-white rounded-2xl p-7 border border-[rgb(242_241_241)] hover:shadow-md transition-shadow"
+              className="bg-[rgb(252_250_246)] rounded-2xl p-7 border border-[rgb(219_218_215)] hover:shadow-md transition-shadow"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(255_250_245)] border border-[rgb(254_209_170)] text-[rgb(231_129_40)] mb-5">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(240_247_243)] border border-[rgb(216_236_225)] text-[rgb(72_112_93)] mb-5">
                 {item.icon}
               </div>
               <h3
-                className="text-xl font-bold text-[rgb(23_23_23)] mb-2"
+                className="text-xl font-bold text-[rgb(36_36_33)] mb-2"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {item.title}
               </h3>
-              <p className="text-sm text-[rgb(115_115_115)] leading-relaxed mb-5">
+              <p className="text-sm text-[rgb(139_138_134)] leading-relaxed mb-5">
                 {item.description}
               </p>
               <div className="flex flex-wrap gap-2">
                 {item.items.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[rgb(255_250_245)] text-[rgb(180_98_26)] border border-[rgb(254_209_170)]"
+                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[rgb(240_247_243)] text-[rgb(50_47_42)] border border-[rgb(155_195_175)]"
                   >
                     {tag}
                   </span>

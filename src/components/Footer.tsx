@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-[rgb(23_23_23)] text-white py-6">
+    <footer className="bg-[rgb(17_16_14)] text-white py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <a href="#" className="flex items-center gap-2">
@@ -21,10 +21,10 @@ export default function Footer() {
               CosyCase
             </span> */}
           </a>
-          <p className="text-xs text-[rgb(115_115_115)]">
+          <p className="text-xs text-[rgb(139_138_134)]">
             © {year} CosyCase. All rights reserved.
           </p>
-          <div className="flex items-center gap-1 text-xs text-[rgb(115_115_115)]">
+          <div className="flex items-center gap-1 text-xs text-[rgb(139_138_134)]">
             <span>Made with</span>
             <svg
               width="16"

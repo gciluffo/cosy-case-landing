@@ -4,13 +4,13 @@ export default function AIFeature() {
   return (
     <section
       id="ai-art"
-      className="py-20 md:py-28 bg-[rgb(23_23_23)] overflow-hidden"
+      className="py-20 md:py-28 bg-[rgb(17_16_14)] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left — copy */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(251_157_75)] uppercase mb-3">
+            <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(155_195_175)] uppercase mb-3">
               AI-powered
             </span>
             <h2
@@ -18,7 +18,7 @@ export default function AIFeature() {
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Give every book a{" "}
-              <span className="text-[rgb(251_157_75)]">
+              <span className="text-[rgb(155_195_175)]">
                 spine worthy of your shelf
               </span>
             </h2>
@@ -51,7 +51,7 @@ export default function AIFeature() {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="bg-[rgb(39_38_37)] rounded-xl p-4 border border-white/5"
+                  className="bg-[rgb(38_36_32)] rounded-xl p-4 border border-white/5"
                 >
                   <div className="text-sm font-semibold text-white mb-0.5">
                     {item.label}
@@ -65,7 +65,7 @@ export default function AIFeature() {
 
             <a
               href="#download"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[rgb(231_129_40)] text-white font-semibold hover:bg-[rgb(215_117_31)] transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[rgb(72_112_93)] text-white font-semibold hover:bg-[rgb(55_87_71)] transition-colors"
             >
               Try it free
               <svg
@@ -89,7 +89,7 @@ export default function AIFeature() {
               <div
                 aria-hidden
                 className="absolute inset-0 blur-3xl opacity-25 rounded-[40px]"
-                style={{ background: "rgb(231 129 40)" }}
+                style={{ background: "rgb(72 112 93)" }}
               />
               <div className="relative w-[260px] sm:w-[280px] aspect-[9/19] rounded-[36px] bg-[rgb(15_15_15)] shadow-2xl ring-1 ring-white/10 overflow-hidden p-[6px]">
                 <div className="relative w-full h-full rounded-[30px] overflow-hidden bg-black">
@@ -104,7 +104,7 @@ export default function AIFeature() {
               </div>
 
               {/* Floating badge */}
-              <div className="absolute -top-4 -right-8 bg-[rgb(39_38_37)] border border-white/10 rounded-2xl shadow-lg px-4 py-3 flex items-center gap-2.5">
+              <div className="absolute -top-4 -right-8 bg-[rgb(38_36_32)] border border-white/10 rounded-2xl shadow-lg px-4 py-3 flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-[rgb(231_129_40)] flex items-center justify-center flex-shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                     <path d="M12 2L2 7l10 5 10-5-10-5z" />

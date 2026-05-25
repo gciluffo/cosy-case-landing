@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "How can I see what changes were made to a bookshelf?",
-    a: "When looking at a bookshelf sometimes its hard to see whats changed. Thats why we maintane a change log for each activity that happened. To see the change log of a bookshelf you are following, go to the bookshelf and tap on the clock icon on the bottom.",
+    a: "When looking at a bookshelf sometimes it's hard to see what's changed. That's why we maintain a change log for each activity that happened. To see the change log of a bookshelf you are following, go to the bookshelf and tap on the clock icon on the bottom.",
   },
   {
     q: "How does auto-cropping spines work?",
@@ -31,17 +31,17 @@ const faqs = [
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-[rgb(242_241_241)] rounded-xl overflow-hidden">
+    <div className="border border-[rgb(219_218_215)] rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-[rgb(246_246_246)] transition-colors"
+        className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-[rgb(244_242_238)] transition-colors"
         aria-expanded={open}
       >
-        <span className="text-sm font-semibold text-[rgb(23_23_23)] pr-4">
+        <span className="text-sm font-semibold text-[rgb(36_36_33)] pr-4">
           {q}
         </span>
         <span
-          className="flex-shrink-0 w-7 h-7 rounded-full bg-[rgb(255_250_245)] border border-[rgb(254_209_170)] flex items-center justify-center text-[rgb(231_129_40)] transition-transform duration-200"
+          className="flex-shrink-0 w-7 h-7 rounded-full bg-[rgb(240_247_243)] border border-[rgb(216_236_225)] flex items-center justify-center text-[rgb(72_112_93)] transition-transform duration-200"
           style={{ transform: open ? "rotate(45deg)" : "none" }}
           aria-hidden
         >
@@ -59,7 +59,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         </span>
       </button>
       {open && (
-        <div className="px-6 pb-5 text-sm text-[rgb(115_115_115)] leading-relaxed border-t border-[rgb(242_241_241)] pt-4">
+        <div className="px-6 pb-5 text-sm text-[rgb(139_138_134)] leading-relaxed border-t border-[rgb(219_218_215)] pt-4">
           {a}
         </div>
       )}
@@ -69,14 +69,14 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-20 md:py-28 bg-white">
+    <section id="faq" className="py-20 md:py-28 bg-[rgb(252_250_246)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
             Got questions?
           </span>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[rgb(23_23_23)]"
+            className="text-3xl sm:text-4xl font-bold text-[rgb(36_36_33)]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Frequently asked questions

@@ -1,34 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand accent — tertiary from app palette */
-  --color-brand-50: rgb(255 250 245);
-  --color-brand-100: rgb(255 242 229);
-  --color-brand-200: rgb(255 233 213);
-  --color-brand-300: rgb(254 209 170);
-  --color-brand-400: rgb(253 180 116);
-  --color-brand-500: rgb(251 157 75);
-  --color-brand: rgb(231 129 40);
-  --color-brand-600: rgb(215 117 31);
-  --color-brand-700: rgb(180 98 26);
-  --color-brand-800: rgb(130 73 23);
-  --color-brand-900: rgb(108 61 19);
-  --color-brand-950: rgb(84 49 18);
+  /* Primary action accent — Shelf Sage */
+  --color-sage: rgb(72 112 93); /* #48705D */
+  --color-sage-dark: rgb(155 195 175); /* #9BC3AF — sage on dark backgrounds */
+  --color-sage-50: rgb(240 247 243); /* lightest sage wash for icon bgs */
+  --color-sage-100: rgb(216 236 225); /* sage tint for borders/hover states */
 
-  /* Surface / background */
-  --color-surface-0: rgb(255 255 255);
-  --color-surface-50: rgb(246 246 246);
-  --color-surface-100: rgb(242 241 241);
-  --color-surface-200: rgb(220 219 219);
-  --color-surface-dark: rgb(23 23 23);
-  --color-surface-dark-2: rgb(39 38 37);
+  /* Delight accent — Amber Page (delight moments only: stars, badges, milestones) */
+  --color-amber: rgb(231 129 40); /* #E78128 */
+  --color-amber-50: rgb(255 250 245); /* lightest amber tint */
+  --color-amber-100: rgb(255 242 229); /* light amber tint */
+
+  /* Surface / background — Warm Stone (no pure white) */
+  --color-surface-0: rgb(
+    252 250 246
+  ); /* #FCFAF6 warm oatmeal — primary surface */
+  --color-surface-50: rgb(
+    244 242 238
+  ); /* #F4F2EE warm surface — cards, sections */
+  --color-surface-100: rgb(
+    219 218 215
+  ); /* #DBDAD7 warm stone — borders, dividers */
+  --color-surface-dark: rgb(
+    17 16 14
+  ); /* #11100E deep charcoal — dark sections */
+  --color-surface-dark-2: rgb(
+    38 36 32
+  ); /* #262420 dark surface — sub-surfaces */
 
   /* Text */
-  --color-text-primary: rgb(23 23 23);
-  --color-text-secondary: rgb(64 64 64);
-  --color-text-muted: rgb(115 115 115);
-  --color-text-light: rgb(163 163 163);
-  --color-text-inverse: rgb(254 254 255);
+  --color-text-primary: rgb(36 36 33); /* #242421 */
+  --color-text-secondary: rgb(139 138 134); /* #8B8A86 warm gray */
+  --color-text-muted: rgb(139 138 134); /* #8B8A86 */
+  --color-text-light: rgb(180 178 175); /* lighter warm gray */
+  --color-text-inverse: rgb(227 224 218); /* #E3E0DA dark mode text */
+
+  /* Interactive chrome */
+  --color-charcoal: rgb(50 47 42); /* #322F2A charcoal oak */
 
   /* Fonts */
   --font-heading: "Playfair Display", Georgia, serif;

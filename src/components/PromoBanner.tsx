@@ -26,7 +26,7 @@ export default function PromoBanner() {
                 "0 2px 12px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)",
             }}
           >
-            Try it out!
+            Your shelf awaits.
           </h2>
 
           {/* Right: store badges */}

@@ -34,7 +34,7 @@ function StarRating({ rating }: { rating: number }) {
           fill={i < rating ? "currentColor" : "none"}
           stroke="currentColor"
           strokeWidth={1.5}
-          className="text-brand"
+          className="text-amber"
         >
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
@@ -45,7 +45,7 @@ function StarRating({ rating }: { rating: number }) {
 
 function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-surface-100 flex flex-col gap-3 w-full lg:w-[calc(33.333%-14px)]">
+    <div className="bg-[rgb(252_250_246)] rounded-2xl p-6 shadow-sm border border-surface-100 flex flex-col gap-3 w-full lg:w-[calc(33.333%-14px)]">
       <StarRating rating={review.rating} />
       <p
         className="text-base font-semibold text-text-primary leading-snug"
@@ -68,7 +68,7 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[number] }) {
 
 export default function AppReviews() {
   return (
-    <section className="py-16 sm:py-24 bg-brand-50">
+    <section className="py-16 sm:py-24 bg-surface-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
