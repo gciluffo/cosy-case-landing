@@ -1,0 +1,520 @@
+{
+  "context_envelope": {
+    "meta": {
+      "plan_id": "20260609-contact-section",
+      "created_at": "2026-06-09T00:00:00Z",
+      "last_updated": "2026-06-09T00:00:00Z",
+      "version": 1,
+      "previous_version_fields_changed": [],
+      "source": ["AGENTS.md", "DESIGN.md", "codebase analysis via planner discovery"]
+    },
+    "scope": {
+      "purpose": [
+        "Reusable implementation context for the Contact section feature",
+        "Captures verified codebase ground truth so implementers don't re-discover"
+      ],
+      "applies_to": [
+        "src/components/Contact.tsx (new)",
+        "src/pages/contact.tsx (new)",
+        "src/components/Navbar.tsx (modify)",
+        "docs/contact-setup-guide.md (new)"
+      ],
+      "non_goals": [
+        "No server-side API routes (static export constraint)",
+        "No npm dependencies added",
+        "No changes to existing pages (index.tsx, faq.tsx) or other components",
+        "No database or backend service"
+      ]
+    },
+    "project_summary": {
+      "business_domain": "CosyCase — digital bookshelf and book tracker app landing page",
+      "primary_users": ["App users seeking support/contact", "Landing page visitors"],
+      "key_features": ["Contact form with Google Sheets backend", "Email fallback for direct communication", "Standalone /contact page with SEO metadata"],
+      "current_phase": "Adding Contact page feature (previously: landing page is feature-complete with Hero, BookshelfShowcase, Features, AppReviews, FAQ, PromoBanner, Footer)"
+    },
+    "tech_stack": [
+      {
+        "name": "Next.js",
+        "version": "16.2.1",
+        "usage_context": "Pages Router with output: 'export' for fully static site. No SSR/API routes at runtime.",
+        "config_files": ["next.config.ts", "package.json"]
+      },
+      {
+        "name": "React",
+        "version": "19.2.4",
+        "usage_context": "Functional components with hooks (useState, useRouter, useEffect). 'use client' directive on interactive components.",
+        "config_files": ["package.json"]
+      },
+      {
+        "name": "Tailwind CSS",
+        "version": "4.2.2",
+        "usage_context": "CSS-first configuration. All design tokens in @theme {} block in src/styles/globals.css. No tailwind.config.js.",
+        "config_files": ["src/styles/globals.css", "postcss.config.mjs (assumed)"]
+      },
+      {
+        "name": "TypeScript",
+        "version": "5.x",
+        "usage_context": "All .tsx files. Strict mode assumed.",
+        "config_files": ["tsconfig.json"]
+      }
+    ],
+    "conventions": [
+      "Default exports for all page components and section components",
+      "Section structure: <section> with py-20 md:py-28, max-w-container, semantic HTML",
+      "Section label pattern: <span className='text-xs font-semibold tracking-widest text-orange uppercase mb-3'>",
+      "Heading pattern: <h2 className='text-3xl sm:text-4xl font-bold' style={{ fontFamily: 'var(--font-heading)' }}>",
+      "Use inline rgb() values OR Tailwind utility classes — be consistent with surrounding code",
+      "Form inputs: surface-50 bg, surface-100 border, orange focus ring, text-text-primary text",
+      "Buttons: rounded-full, bg-orange text-white, px-4/6 py-2/3, hover:bg-[rgb(190_100_30)]",
+      "Active states: full-perimeter border (border border-orange), NOT border-l-4 side-stripe",
+      "SEO pattern from faq.tsx: SITE_URL constant, Head component, canonical, OG tags"
+    ],
+    "constraints": {
+      "hard": [
+        "output: 'export' — NO server-side code, NO API routes, NO getServerSideProps",
+        "NO pure white (#fff, rgb(255 255 255), bg-white) on any surface — use surface-0 or surface-50",
+        "NO amber as a primary action color — orange only for buttons/links/active states",
+        "NO border-l-4 side-stripe on active/selected states — use full border",
+        "NO tailwind.config.js — Tailwind v4 is CSS-first; all tokens in @theme {}",
+        "NO new npm dependencies — vanilla fetch is sufficient for Google Sheets webhook"
+      ],
+      "soft": [
+        "Section backgrounds should alternate for visual rhythm — Contact on its own page can use surface-0",
+        "Form layout should be single-column on mobile, centered with max-w-2xl on desktop",
+        "Google Sheets webhook URL should be a constant in Contact.tsx with a placeholder and clear replacement comment"
+      ],
+      "compatibility": [
+        "Must work on iOS Safari, Android Chrome, desktop browsers (fetch + FormData/JSON)",
+        "Google Apps Script webhooks accept CORS POST by default when deployed with Access: 'Anyone'"
+      ],
+      "security_requirements": [
+        "Contact form submissions are anonymous/unauthenticated (no user session required)",
+        "No sensitive data collected (name, email, app version are all optional)",
+        "Google Sheets webhook URL should not be publicly documented beyond setup guide"
+      ]
+    },
+    "architecture_snapshot": {
+      "key_dirs": {
+        "src/components": ["Navbar.tsx", "Hero.tsx", "BookshelfShowcase.tsx", "Features.tsx", "AppReviews.tsx", "FAQ.tsx", "PromoBanner.tsx", "Footer.tsx", "AIFeature.tsx", "Customization.tsx"],
+        "src/pages": ["index.tsx", "faq.tsx"],
+        "src/styles": ["globals.css"],
+        "src/utils": ["getStoreUrl.ts"],
+        "public/spines": ["*.jpg — book spine images for Hero"],
+        "public/screenshots": ["*.png — app screenshots"],
+        "public/shelves": ["shelf background images"]
+      },
+      "patterns": [
+        "Section components export default function; imported and rendered in pages",
+        "Navbar has dual-render: desktop (hidden md:flex) + mobile (md:hidden dropdown)",
+        "Navbar uses scroll-spy (IntersectionObserver) for FAQ anchor on homepage, router pathname for standalone pages",
+        "FAQ.tsx uses 'use client' + useState for accordion behavior",
+        "Pages follow identical Head pattern: title, description, canonical, OG tags",
+        "SITE_URL constant defined locally in each page file"
+      ],
+      "key_components": [
+        {
+          "name": "Navbar",
+          "location": "src/components/Navbar.tsx",
+          "responsibility": ["Sticky navigation", "Desktop link cluster", "Mobile hamburger menu", "Active state tracking (scroll-spy + router)", "Download CTA button"],
+          "confidence": 1.0
+        },
+        {
+          "name": "FAQ",
+          "location": "src/components/FAQ.tsx",
+          "responsibility": ["Accordion FAQ section", "Expandable Q&A items", "Section label + heading + container layout"],
+          "confidence": 1.0
+        },
+        {
+          "name": "Contact (planned)",
+          "location": "src/components/Contact.tsx (not yet created)",
+          "responsibility": ["Contact form with validation", "POST to Google Sheets webhook", "Loading/success/error states", "Email fallback section"],
+          "confidence": 0.9
+        }
+      ]
+    },
+    "research_digest": {
+      "relevant_files": [
+        {
+          "path": "src/components/Navbar.tsx",
+          "purpose": ["Primary modification target for adding Contact link"],
+          "why_relevant": ["Must add Contact link in desktop nav div and mobile dropdown", "Must follow active-state pattern (isActive, navLinkClass)", "Must preserve FAQ scroll-spy logic"],
+          "key_elements": [
+            {
+              "element": "NAV_LINKS",
+              "type": "constant array",
+              "location": "src/components/Navbar.tsx:7-9",
+              "description": "Array of { label, href } objects. Currently only ['Featured Shelves', '/bookshelves']. Contact link will NOT be added here (it's handled like FAQ as a standalone element)."
+            },
+            {
+              "element": "isActive",
+              "type": "function",
+              "location": "src/components/Navbar.tsx:38-41",
+              "description": "Checks faqActive for #faq, otherwise pathname === href. Contact will match on pathname === '/contact'."
+            },
+            {
+              "element": "navLinkClass",
+              "type": "function",
+              "location": "src/components/Navbar.tsx:43-47",
+              "description": "Returns active/inactive Tailwind classes. Active: text-sm font-semibold text-text-primary. Inactive: text-sm font-medium text-text-secondary hover:text-orange."
+            },
+            {
+              "element": "desktop nav div",
+              "type": "JSX element",
+              "location": "src/components/Navbar.tsx:73-86",
+              "description": "hidden md:flex div with border-r border-surface-100 separator. Contains FAQ link + NAV_LINKS.map(). Contact link goes between FAQ and NAV_LINKS."
+            },
+            {
+              "element": "mobile dropdown",
+              "type": "JSX element",
+              "location": "src/components/Navbar.tsx:138-168",
+              "description": "md:hidden grid dropdown. Links use py-3 border-b border-surface-100 pattern. Contact link goes between FAQ and NAV_LINKS.map()."
+            }
+          ],
+          "security_sensitivity": "none",
+          "contains_secrets": false,
+          "reliability": "codebase",
+          "confidence": 1.0
+        },
+        {
+          "path": "src/pages/faq.tsx",
+          "purpose": ["Exact template for creating src/pages/contact.tsx"],
+          "why_relevant": ["Demonstrates the page structure pattern with Head, Navbar, main, section import", "Shows exact SEO metadata format (title, description, canonical, OG)"],
+          "key_elements": [
+            {
+              "element": "SITE_URL",
+              "type": "constant",
+              "location": "src/pages/faq.tsx:5",
+              "description": "const SITE_URL = 'https://cosycases.com'; — used in canonical and OG URL"
+            },
+            {
+              "element": "Page component structure",
+              "type": "pattern",
+              "location": "src/pages/faq.tsx:7-32",
+              "description": "<><Head>...</Head><Navbar /><main className='pt-16'><FAQ /></main></>"
+            }
+          ],
+          "security_sensitivity": "none",
+          "contains_secrets": false,
+          "reliability": "codebase",
+          "confidence": 1.0
+        },
+        {
+          "path": "src/styles/globals.css",
+          "purpose": ["Design token definitions for Tailwind v4 @theme"],
+          "why_relevant": ["All color, font, and spacing tokens used by the Contact component are defined here", "Must use the generated utility classes (bg-surface-0, text-orange, etc.) or inline rgb()"],
+          "key_elements": [
+            {
+              "element": "--color-orange",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:5",
+              "description": "rgb(231 129 40) — primary action color. Use for submit button, focus rings, active states."
+            },
+            {
+              "element": "--color-surface-0",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:16-18",
+              "description": "rgb(252 250 246) — primary surface. Use for page background and form container."
+            },
+            {
+              "element": "--color-surface-50",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:19-21",
+              "description": "rgb(244 242 238) — secondary surface. Use for input backgrounds."
+            },
+            {
+              "element": "--color-surface-100",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:22-24",
+              "description": "rgb(219 218 215) — borders and dividers. Use for input borders (default state)."
+            },
+            {
+              "element": "--color-text-primary",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:33",
+              "description": "rgb(36 36 33) — body copy and headings."
+            },
+            {
+              "element": "--color-text-secondary",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:34",
+              "description": "rgb(139 138 134) — labels, captions."
+            },
+            {
+              "element": "--font-heading",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:43",
+              "description": "'Playfair Display', Georgia, serif — heading font."
+            },
+            {
+              "element": "--font-body",
+              "type": "CSS variable",
+              "location": "src/styles/globals.css:44",
+              "description": "'Inter', system-ui, sans-serif — body font."
+            }
+          ],
+          "security_sensitivity": "none",
+          "contains_secrets": false,
+          "reliability": "codebase",
+          "confidence": 1.0
+        },
+        {
+          "path": "DESIGN.md",
+          "purpose": ["Complete design system specification with absolute bans"],
+          "why_relevant": ["Every design decision must conform to these rules", "Absolute bans are non-negotiable constraints"],
+          "key_elements": [
+            {
+              "element": "Absolute bans",
+              "type": "rule",
+              "location": "DESIGN.md:131-137",
+              "description": "1. No pure white surfaces. 2. No amber as primary action. 3. No border-l-4 side-stripe. 4. No identical N-card grids. 5. No tailwind.config.js. 6. No theme()/@apply with custom tokens."
+            },
+            {
+              "element": "Active State Rules",
+              "type": "rule",
+              "location": "DESIGN.md:90-94",
+              "description": "Use full-perimeter border (border border-[rgb(231_129_40)]), NOT side-stripe. Pair with subtle bg tint."
+            },
+            {
+              "element": "Section Background Rhythm",
+              "type": "rule",
+              "location": "DESIGN.md:75-87",
+              "description": "Surface-0 (Hero, BookshelfShowcase, Navbar) → surface-50 (AppReviews) → surface-dark (PromoBanner, Footer). Standalone /contact page can use surface-0."
+            }
+          ],
+          "security_sensitivity": "none",
+          "contains_secrets": false,
+          "reliability": "codebase",
+          "confidence": 1.0
+        },
+        {
+          "path": "next.config.ts",
+          "purpose": ["Next.js build configuration"],
+          "why_relevant": ["Confirms output: 'export' — no API routes allowed", "Must verify new page is auto-discovered by Pages Router"],
+          "key_elements": [],
+          "security_sensitivity": "none",
+          "contains_secrets": false,
+          "reliability": "codebase",
+          "confidence": 1.0
+        },
+        {
+          "path": "src/components/FAQ.tsx",
+          "purpose": ["Reference component for section structure patterns"],
+          "why_relevant": ["Shows section label pattern, heading pattern, container pattern", "Uses 'use client' directive for interactive state"],
+          "key_elements": [
+            {
+              "element": "Section label pattern",
+              "type": "pattern",
+              "location": "src/components/FAQ.tsx:75-76",
+              "description": "<span className='inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3'>"
+            },
+            {
+              "element": "Heading pattern",
+              "type": "pattern",
+              "location": "src/components/FAQ.tsx:78-80",
+              "description": "<h2 className='text-3xl sm:text-4xl font-bold text-[rgb(36_36_33)]' style={{ fontFamily: 'var(--font-heading)' }}>"
+            },
+            {
+              "element": "Container pattern",
+              "type": "pattern",
+              "location": "src/components/FAQ.tsx:73",
+              "description": "<div className='max-w-3xl mx-auto px-4 sm:px-6 lg:px-8'>"
+            },
+            {
+              "element": "'use client' directive",
+              "type": "directive",
+              "location": "src/components/FAQ.tsx:1",
+              "description": "Interactive components (with useState/useEffect) must include 'use client'"
+            }
+          ],
+          "security_sensitivity": "none",
+          "contains_secrets": false,
+          "reliability": "codebase",
+          "confidence": 1.0
+        }
+      ],
+      "patterns_found": [
+        {
+          "name": "Page wrapper pattern",
+          "category": "file structure",
+          "confidence": 1.0,
+          "source": "codebase_analysis",
+          "example_location": ["src/pages/faq.tsx:7-32"]
+        },
+        {
+          "name": "Section component pattern",
+          "category": "component structure",
+          "confidence": 1.0,
+          "source": "codebase_analysis",
+          "example_location": ["src/components/FAQ.tsx:70-92"]
+        },
+        {
+          "name": "Navbar link dual-render pattern",
+          "category": "responsive navigation",
+          "confidence": 1.0,
+          "source": "codebase_analysis",
+          "example_location": ["src/components/Navbar.tsx:73-86 (desktop)", "src/components/Navbar.tsx:138-168 (mobile)"]
+        }
+      ],
+      "dependencies": {
+        "internal": [
+          "@/components/Navbar",
+          "@/components/Contact (new)",
+          "@/components/FAQ",
+          "next/head",
+          "next/link",
+          "next/router"
+        ],
+        "external": [
+          "react 19.2.4",
+          "react-dom 19.2.4",
+          "next 16.2.1",
+          "tailwindcss 4.2.2"
+        ]
+      },
+      "gotchas": [
+        {
+          "text": "Next 16 uses 'use client' directive for interactive components. Contact.tsx needs it because it uses useState for form state, loading, success, error.",
+          "confidence": 1.0
+        },
+        {
+          "text": "The Navbar has separate code paths for FAQ (anchor scroll on homepage vs. page navigation elsewhere). Contact is simpler — always navigates to /contact, no anchor behavior needed.",
+          "confidence": 1.0
+        },
+        {
+          "text": "Google Apps Script doPost(e) receives the POST body as e.postData.contents (a string). Must JSON.parse() it. The response format must include ContentService.MimeType.JSON.",
+          "confidence": 0.9
+        },
+        {
+          "text": "Tailwind v4 auto-generates utility classes from @theme tokens. --color-surface-50 becomes bg-surface-50, border-surface-50, etc. Do not use theme() or @apply.",
+          "confidence": 1.0
+        }
+      ],
+      "domain_context": {
+        "security_considerations": [
+          {
+            "area": "Form submission",
+            "location": "src/components/Contact.tsx (planned)",
+            "concern": "Webhook URL is a hardcoded constant in the public JS bundle. This is acceptable for a Google Sheets webhook (the URL alone doesn't grant write access without the Apps Script). But it means the URL is visible to anyone who inspects the page source."
+          },
+          {
+            "area": "Input sanitization",
+            "location": "src/components/Contact.tsx (planned)",
+            "concern": "Form input is sent directly to Google Sheets. No XSS risk in the sheet itself, but the Apps Script should not eval() user input. The provided doPost code only appends rows."
+          }
+        ],
+        "testing_patterns": {
+          "framework": "Manual E2E testing via gem-browser-tester (no Jest/Cypress configured)",
+          "coverage_areas": ["Build verification", "Navigation", "Form validation", "Active states", "Regression check"],
+          "test_organization": "Verification scenarios defined in task-integration-verification.validation_matrix",
+          "mock_patterns": ["N/A — testing against real build output, not mocked"]
+        },
+        "error_handling": "Client-side try/catch around fetch. Show error message with retry prompt on failure. Console.warn if webhook URL is still placeholder. Distinguish between validation errors (block submit) and network errors (show error state).",
+        "data_flow": "User fills form → client-side validation → fetch POST JSON to Google Sheets webhook → Apps Script parses JSON → appends row to sheet → returns JSON success/error → UI shows success or error state."
+      },
+      "open_questions": [
+        {
+          "question": "Should the Contact link go between FAQ and Featured Shelves or at the end of the nav?",
+          "context": "Current desktop nav order: FAQ → Featured Shelves. User asked for placement guidance.",
+          "type": "decision_blocker",
+          "affects": ["task-navbar-contact-link"]
+        },
+        {
+          "question": "Should the webhook URL be in Contact.tsx directly or in a shared config file?",
+          "context": "Static export has no runtime env. The URL must be a build-time constant.",
+          "type": "nice_to_know",
+          "affects": ["task-contact-component"]
+        }
+      ]
+    },
+    "prior_decisions": [
+      {
+        "decision": "Use Google Sheets as contact form backend via Apps Script webhook",
+        "rationale": ["Free, unlimited submissions", "No server needed", "Easy for user to review submissions in a spreadsheet", "Compatible with static export (client-side POST)"],
+        "evidence": ["User specification in task clarifications"],
+        "confidence": 1.0,
+        "linked_constraints": ["output: 'export' — no server-side API routes"],
+        "linked_patterns": ["Client-side fetch POST pattern"]
+      },
+      {
+        "decision": "Standalone /contact page (not a section on the homepage)",
+        "rationale": ["Keeps the homepage focused on product marketing", "Dedicated URL for bookmarking/sharing", "Better SEO with a focused meta title and description"],
+        "evidence": ["User specification in task clarifications"],
+        "confidence": 1.0,
+        "linked_constraints": [],
+        "linked_patterns": ["Page wrapper pattern from faq.tsx"]
+      },
+      {
+        "decision": "Contact link placement: FAQ → Contact → Featured Shelves",
+        "rationale": ["Contact is a utility page — natural to place after FAQ (also a utility page)", "Featured Shelves is content — comes after utility links", "Matches common SaaS landing page nav conventions"],
+        "evidence": ["Best practice for landing page nav ordering"],
+        "confidence": 0.8,
+        "linked_constraints": [],
+        "linked_patterns": ["Navbar dual-render pattern"]
+      },
+      {
+        "decision": "Webhook URL as constant in Contact.tsx (not a separate config file)",
+        "rationale": ["Minimizes file sprawl for a single constant", "User only needs to edit one file to configure the webhook", "No module resolution edge cases with static export"],
+        "evidence": ["Simplicity over abstraction for a single constant"],
+        "confidence": 0.85,
+        "linked_constraints": ["output: 'export'"],
+        "linked_patterns": []
+      }
+    ],
+    "evidence_map": [
+      {
+        "claim": "Navbar has desktop and mobile link sections that both need Contact link added",
+        "evidence_paths": ["src/components/Navbar.tsx:73-86 (desktop)", "src/components/Navbar.tsx:138-168 (mobile)"]
+      },
+      {
+        "claim": "FAQ page is the exact pattern to follow for the /contact page",
+        "evidence_paths": ["src/pages/faq.tsx:1-33"]
+      },
+      {
+        "claim": "Design system bans are documented in DESIGN.md",
+        "evidence_paths": ["DESIGN.md:131-137"]
+      },
+      {
+        "claim": "All color and font tokens are defined in globals.css @theme block",
+        "evidence_paths": ["src/styles/globals.css:1-45"]
+      },
+      {
+        "claim": "Next.js is configured for static export with no server-side rendering",
+        "evidence_paths": ["next.config.ts", "package.json (scripts.export = next build)"]
+      }
+    ],
+    "reuse_notes": {
+      "do_not_re_read": [
+        "DESIGN.md — already fully captured in constraints, conventions, and gotchas",
+        "src/styles/globals.css @theme block — token values captured in research_digest.relevant_files",
+        "package.json — tech stack captured in meta"
+      ],
+      "safe_to_assume": [
+        "Next.js Pages Router auto-discovers all .tsx files in src/pages/",
+        "output: 'export' generates .html files for each page in out/ directory",
+        "Tailwind v4 generates utility classes from all --color-* and --font-* tokens in @theme block",
+        "Google Apps Script webhooks accept CORS POST requests",
+        "Inter font is available (loaded via Next.js font system or Google Fonts)"
+      ],
+      "verify_before_use": [
+        "Exact order of Navbar links in desktop and mobile — verify no other links were added between plan creation and implementation",
+        "Whether the Navbar.tsx file has been modified since plan creation — check git status",
+        "Exact email address for mailto fallback — confirm hello@cosycases.com is still correct"
+      ]
+    },
+    "plan_summary": {
+      "tldr": "Create Contact.tsx form component (5 fields, Google Sheets POST, email fallback), wrap in /contact page, add Navbar link, write setup guide. 5 tasks across 3 waves.",
+      "complexity": "medium",
+      "risk_level": "low",
+      "key_assumptions": [
+        "Google Sheets webhook URL is a constant the user replaces after deploying Apps Script",
+        "Navbar link order is FAQ → Contact → Featured Shelves",
+        "No ContactPage structured data needed",
+        "Existing Navbar scroll-spy for FAQ is not affected by adding a Contact link"
+      ],
+      "critical_risks": [
+        "Webhook URL left as placeholder → all submissions fail. Mitigated by placeholder warning and setup guide verification step.",
+        "Form validation bypass allows empty required fields. Mitigated by validateForm() pure function tested in integration verification."
+      ]
+    }
+  }
+}

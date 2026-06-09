@@ -1,0 +1,612 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# PLAN METADATA
+# ═══════════════════════════════════════════════════════════════════════════
+plan_id: "20260609-contact-section"
+objective: >
+  Add a standalone /contact page with a client-side Contact form that submits
+  to Google Sheets via Apps Script webhook, plus an email fallback section.
+  Add a "Contact" link to the Navbar (desktop + mobile). Provide the user with
+  step-by-step instructions for setting up the Google Sheets webhook manually.
+created_at: "2026-06-09T00:00:00Z"
+created_by: gem-planner
+status: completed
+tldr: >
+  Create Contact.tsx form component (5 fields, client-side validation,
+  Google Sheets POST, email fallback), wrap it in /contact page, add Navbar
+  link, and write a setup guide for the Google Sheets webhook.
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PLAN-LEVEL METRICS
+# ═══════════════════════════════════════════════════════════════════════════
+plan_metrics:
+  wave_1_task_count: 3
+  total_dependencies: 4
+  risk_score: low
+quality_score:
+  overall: 0.94
+  breakdown:
+    prd_coverage: 0.95
+    target_files_verified: 1.0
+    contracts_complete: 1.0
+    wave_assignment_valid: 1.0
+  blocking_issues: 0
+  warnings: 1
+  reviewer_focus:
+    - "prd_coverage — verify the setup guide covers all edge cases the user might hit during Google Sheets deployment"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PLANNING ANALYSIS
+# ═══════════════════════════════════════════════════════════════════════════
+open_questions:
+  - question: "Where should the Contact link sit in the Navbar order?"
+    context: "Navbar currently has: FAQ → Featured Shelves. User asked whether Contact should go between them or at the end."
+    type: decision_blocker
+    affects:
+      - "task-navbar-contact-link"
+      - "desktop-link-order"
+      - "mobile-link-order"
+      - "visual-hierarchy"
+  - question: "Should the Google Sheets webhook URL be a top-level constant in Contact.tsx or in a separate shared config file?"
+    context: "Static export means no runtime env vars. The URL must be hardcoded at build time and replaced by the user after deploying the Apps Script."
+    type: nice_to_know
+    affects:
+      - "task-contact-component"
+
+gaps: []
+
+pre_mortem:
+  overall_risk_level: low
+  critical_failure_modes:
+    - scenario: "Google Sheets webhook URL is not configured by the user, causing all form submissions to fail silently."
+      likelihood: high
+      impact: high
+      mitigation: >
+        Include a prominent placeholder comment at the webhook URL constant.
+        Show a clear error toast/message when fetch fails, with a hint to check
+        the webhook URL. In the setup guide, add a "Verify your setup" step
+        where the user tests a submission.
+    - scenario: "Navbar active-state logic for /contact page is incorrect, showing the wrong link as active."
+      likelihood: low
+      impact: medium
+      mitigation: >
+        Follow the exact same pattern as the FAQ link: use useRouter().pathname
+        and compare against "/contact". Test on both / and /contact routes.
+    - scenario: "Form validation allows empty required fields to be submitted."
+      likelihood: low
+      impact: medium
+      mitigation: >
+        Implement validation as a pure function run before fetch. Test all
+        edge cases: empty strings, whitespace-only, missing keys.
+    - scenario: "Mobile layout of the Contact form is cramped or breaks on small screens."
+      likelihood: medium
+      impact: low
+      mitigation: >
+        Use responsive Tailwind classes (sm:, md:) for form layout.
+        Single-column on mobile, two-column where appropriate on desktop.
+        Test at 375px viewport width.
+  assumptions:
+    - "The user will create a Google Sheet and deploy the Apps Script webhook before the form goes live."
+    - "The Google Sheets webhook accepts JSON POST bodies with the field structure defined below."
+    - "No CORS issues with Google Apps Script webhooks (they typically allow cross-origin POST)."
+    - "The Contact page does not need structured data (no ContactPage schema required for a small landing page)."
+    - "The Navbar link order should be: FAQ → Contact → Featured Shelves (Contact between FAQ and content links)."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TASKS
+# ═══════════════════════════════════════════════════════════════════════════
+tasks:
+  # ─────────────────────────────────────────────────────────────────────────
+  # TASK 1: Google Sheets Setup Guide
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: task-setup-guide
+    title: "Write Google Sheets webhook setup guide"
+    description: >
+      Write a step-by-step markdown guide for the user to set up the Google
+      Sheets webhook. The guide must cover: (1) creating a Google Sheet,
+      (2) opening Extensions → Apps Script, (3) pasting a provided doPost(e)
+      function that parses JSON and appends a row, (4) deploying as a web app
+      (Execute as "Me", Access "Anyone"), (5) copying the resulting webhook URL.
+      Include the full Apps Script code inside the guide with comments.
+      Add a "Verify your setup" section with a curl command or test POST
+      snippet the user can run.
+    wave: 1
+    agent: gem-documentation-writer
+    prototype: false
+    priority: high
+    status: pending
+    covers:
+      - google-sheets-webhook
+      - setup-guide
+    dependencies: []
+    conflicts_with: []
+    context_files:
+      - path: src/components/Contact.tsx
+        description: "Will reference the webhook URL constant; the guide should name the same constant and tell the user where to paste the URL."
+      - path: src/pages/contact.tsx
+        description: "The page that will render the Contact form; guide should note which page uses the webhook."
+    estimated_effort: small
+    flags:
+      flaky: false
+      retries_used: 0
+      requires_design_validation: false
+    acceptance_criteria:
+      - "Guide includes step-by-step numbered instructions for creating a Google Sheet."
+      - "Guide includes the complete Apps Script doPost(e) function with inline comments."
+      - "Guide explains how to deploy as a web app: Execute as 'Me', Access 'Anyone'."
+      - "Guide tells the user exactly where to copy the webhook URL and paste it in the codebase."
+      - "Guide includes a verification step (curl or similar) to test the webhook."
+      - "Apps Script code correctly parses JSON body and appends a row with timestamp, name, email, category, appVersion, message."
+    success_criteria:
+      - "A user following the guide can successfully set up the webhook and submit a test form entry without external help."
+    failure_modes:
+      - scenario: "Apps Script code has a syntax error or incorrect property access."
+        likelihood: low
+        impact: medium
+        mitigation: "Test the Apps Script code in the Google Apps Script editor before finalizing the guide."
+      - scenario: "Guide assumes knowledge the user doesn't have (e.g., 'open the Apps Script editor')."
+        likelihood: medium
+        impact: low
+        mitigation: "Use explicit UI labels and navigation paths. Add screenshots if possible (or text descriptions of what to click)."
+    task_type: documentation
+    audience: developers
+    coverage_matrix:
+      - "Sheet creation"
+      - "Apps Script code"
+      - "Web app deployment"
+      - "URL configuration"
+      - "Verification testing"
+    handoff:
+      do_not_reinvestigate:
+        - "Google Sheets API — confirmed no server-side API needed; client-side POST to Apps Script webhook is the approach"
+        - "Apps Script doPost(e) signature — JSON parsed from e.postData.contents"
+      required_test_first: "N/A — documentation task"
+      target_files:
+        - "docs/contact-setup-guide.md"
+        - "src/components/Contact.tsx (the guide references the WEBHOOK_URL constant location)"
+      minimal_change: "Create a single new markdown file; no code changes."
+      acceptance_checks:
+        - "Guide file exists at docs/contact-setup-guide.md"
+        - "Guide contains all required sections (create sheet, Apps Script, deploy, configure, verify)"
+        - "Apps Script code is syntactically valid JavaScript"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # TASK 2: Create Contact Form Component
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: task-contact-component
+    title: "Create src/components/Contact.tsx form component"
+    description: >
+      Build the Contact.tsx component with two clearly separated sections:
+
+      **Section 1 — Form:**
+      Fields: Name (optional, text), Email (optional, email), Category (required,
+      <select> with options: "Bug Report", "Feature Request", "Sync Issue",
+      "Other"), App Version (optional, text), Message (required, <textarea>).
+      Client-side validation: Category and Message must be non-empty; Email must
+      be valid if provided. On submit: POST a JSON body to the Google Sheets
+      webhook URL (stored as a constant `WEBHOOK_URL` at the top of the file with
+      a placeholder value and a comment telling the user to replace it after
+      deploying the Apps Script). Show loading state on the submit button, success
+      state (checkmark + message), and error state (message + retry prompt).
+      Reset form on success.
+
+      **Section 2 — Email fallback:**
+      A clearly separated area (divider line + heading) below the form with a
+      mailto link. Text: something like "Prefer to email us directly? Send us a
+      message at hello@cosycases.com" with the email as a clickable mailto link.
+
+      **Design system compliance (NON-NEGOTIABLE):**
+      - Background: surface-0 (rgb(252 250 246))
+      - Input backgrounds: surface-50 (rgb(244 242 238))
+      - Input borders: surface-100 (rgb(219 218 215)) default, orange on focus
+      - Focus ring: ring-2 ring-orange/50
+      - Button: bg-orange, text-white, rounded-full, px-6 py-3, hover:bg-[rgb(190_100_30)]
+      - Labels: text-text-secondary, text-sm font-medium
+      - Heading: font-heading (Playfair Display), text-3xl sm:text-4xl font-bold
+      - Section label: text-xs font-semibold tracking-widest text-orange uppercase
+      - NO pure white, NO amber as action, NO border-l-4
+      - Form layout: single column on mobile, max-w-2xl centered on desktop
+      - Required field indicator: "Required" text or asterisk in text-text-muted
+    wave: 1
+    agent: gem-implementer
+    prototype: false
+    priority: high
+    status: pending
+    covers:
+      - contact-form
+      - google-sheets-webhook-submission
+      - email-fallback
+      - client-side-validation
+    dependencies: []
+    conflicts_with: []
+    context_files:
+      - path: src/styles/globals.css
+        description: "@theme tokens for colors, fonts, etc."
+      - path: DESIGN.md
+        description: "Full design system — absolute bans, color rules, typography, active states"
+      - path: src/components/FAQ.tsx
+        description: "Reference for section structure pattern (section label, heading, container)"
+      - path: src/components/Navbar.tsx
+        description: "Reference for active-state pattern and orange hover styles"
+    estimated_effort: large
+    flags:
+      flaky: false
+      retries_used: 0
+      requires_design_validation: true
+    acceptance_criteria:
+      - "Form renders all five fields: Name, Email, Category (select), App Version, Message (textarea)."
+      - "Category is a <select> with exactly four options: Bug Report, Feature Request, Sync Issue, Other."
+      - "Category and Message are validated as required; Email is validated if non-empty."
+      - "Submit button shows loading state (spinner or disabled text) during fetch."
+      - "On successful POST: success message shown, form resets."
+      - "On fetch failure: error message shown with retry prompt."
+      - "Email fallback section is clearly separated from the form with a visual divider."
+      - "Mailto link uses hello@cosycases.com with a proper mailto: href."
+      - "WEBHOOK_URL constant is declared at the top of the file with a placeholder and clear replacement comment."
+      - "All design system bans are respected: no pure white, no amber as action, no border-l-4."
+      - "Focus rings use orange. Input backgrounds use surface-50."
+      - "Component is responsive: single column on mobile, appropriately sized on desktop (max-w-2xl)."
+      - "Component is exported as default function."
+    success_criteria:
+      - "Form validates correctly: empty required fields are blocked, invalid emails blocked when provided."
+      - "POST request is sent with correct JSON structure matching the Apps Script expectations."
+      - "All three states (loading, success, error) render correctly and are user-visible."
+      - "Component passes TypeScript compilation with no errors."
+      - "Component follows all design system rules as verified by manual review against DESIGN.md."
+    failure_modes:
+      - scenario: "Form submits even when required fields are empty due to validation bypass."
+        likelihood: low
+        impact: high
+        mitigation: "Use a validateForm() pure function called before fetch; return early with setError if invalid."
+      - scenario: "Google Sheets webhook returns a non-OK response, but the UI shows success."
+        likelihood: medium
+        impact: medium
+        mitigation: "Check response.ok after fetch; only show success on HTTP 2xx. Show error on non-2xx."
+      - scenario: "Webhook URL constant is left as placeholder and all submissions silently fail."
+        likelihood: high
+        impact: high
+        mitigation: "Add a console.warn if the URL still contains the placeholder string. Show a prominent error message in the UI."
+      - scenario: "Form is not accessible — missing labels, ARIA attributes, or focus management."
+        likelihood: medium
+        impact: medium
+        mitigation: "Use <label htmlFor> for all inputs, include aria-required on required fields, manage focus on error."
+    tech_stack:
+      - "React 19"
+      - "TypeScript 5"
+      - "Tailwind CSS v4"
+      - "Next.js Pages Router"
+    test_coverage: null
+    diag: null
+    handoff:
+      do_not_reinvestigate:
+        - "Design system tokens — all defined in src/styles/globals.css @theme block"
+        - "Color bans — pure white banned, amber for delight only, orange for actions"
+        - "Typographic hierarchy — headings use font-heading (Playfair Display), body uses font-body (Inter)"
+        - "Form field styling — surface-50 background, surface-100 borders, orange focus rings"
+        - "Google Sheets submission approach — vanilla fetch POST to Apps Script webhook URL, no library needed"
+        - "Email address for fallback — hello@cosycases.com"
+      required_test_first: "N/A — component does not have automated tests"
+      target_files:
+        - "src/components/Contact.tsx"
+      minimal_change: "Create exactly one new file. Do not modify any existing files."
+      acceptance_checks:
+        - "File src/components/Contact.tsx exists"
+        - "Component exports a default function"
+        - "All five form fields present with correct types"
+        - "validateForm function exists and checks required fields"
+        - "WEBHOOK_URL constant present with comment"
+        - "handleSubmit uses fetch with method POST and JSON body"
+        - "Loading/success/error states managed via useState"
+        - "Email fallback section includes mailto link"
+        - "No pure white, no amber-as-action, no border-l-4"
+        - "TypeScript compiles without errors"
+        - "All Tailwind classes reference valid design tokens"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # TASK 3: Create Contact Page
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: task-contact-page
+    title: "Create src/pages/contact.tsx page"
+    description: >
+      Create the /contact page following the exact pattern of src/pages/faq.tsx.
+      Import and render the Contact component inside a <main> tag with pt-16
+      (to clear the sticky Navbar). Include full SEO metadata in <Head>:
+      title, meta description, canonical URL, OG tags. Use the same SITE_URL
+      constant pattern as faq.tsx. The page wrapper should use surface-0
+      background (consistent with other standalone pages). No additional
+      structured data needed for a contact page.
+    wave: 2
+    agent: gem-implementer
+    prototype: false
+    priority: high
+    status: pending
+    covers:
+      - contact-page
+      - seo-metadata
+    dependencies:
+      - task-contact-component
+    conflicts_with: []
+    context_files:
+      - path: src/pages/faq.tsx
+        description: "Exact pattern to follow for page structure, Head imports, SEO metadata, and layout"
+      - path: src/components/Contact.tsx
+        description: "The component to import and render"
+    estimated_effort: small
+    flags:
+      flaky: false
+      retries_used: 0
+      requires_design_validation: false
+    acceptance_criteria:
+      - "Page is at src/pages/contact.tsx."
+      - "Page imports Head from next/head, Navbar from @/components/Navbar, Contact from @/components/Contact."
+      - "<Head> includes: <title>, <meta name='description'>, <link rel='canonical'>, OG title, OG description, OG URL."
+      - "Page renders <Navbar /> then <main className='pt-16'><Contact /></main>."
+      - "SITE_URL constant is set to 'https://cosycases.com'."
+      - "Page title follows the pattern: 'CosyCase Contact – Get in Touch' or similar."
+      - "Meta description mentions the contact form and email fallback."
+    success_criteria:
+      - "Navigating to /contact in the browser renders the Contact form."
+      - "SEO metadata is present in the page source."
+      - "The page is generated in the static export (appears in the out/ directory)."
+      - "TypeScript compiles without errors."
+    failure_modes:
+      - scenario: "Page doesn't appear in static export because it's not discovered by Next.js."
+        likelihood: low
+        impact: high
+        mitigation: "Next.js Pages Router auto-discovers all .tsx files in src/pages/. Verify the file is in the correct directory and the build output includes contact.html."
+      - scenario: "Missing or incorrect canonical URL causes SEO issues."
+        likelihood: low
+        impact: low
+        mitigation: "Copy the exact pattern from faq.tsx, replacing '/faq/' with '/contact/'."
+    tech_stack:
+      - "Next.js Pages Router"
+      - "TypeScript 5"
+      - "React 19"
+    test_coverage: null
+    diag: null
+    handoff:
+      do_not_reinvestigate:
+        - "Page structure pattern — follow src/pages/faq.tsx exactly"
+        - "SEO metadata format — copy fields from faq.tsx, update content for Contact"
+        - "SITE_URL — https://cosycases.com"
+        - "Navbar import path — @/components/Navbar"
+        - "Contact component import path — @/components/Contact"
+      required_test_first: "N/A — page is a thin wrapper"
+      target_files:
+        - "src/pages/contact.tsx"
+      minimal_change: "Create exactly one new file; do not modify any existing files."
+      acceptance_checks:
+        - "File src/pages/contact.tsx exists"
+        - "Imports Head, Navbar, Contact"
+        - "Renders Navbar + Contact in main tag"
+        - "Head includes title, description, canonical, OG tags"
+        - "SITE_URL set to https://cosycases.com"
+        - "TypeScript compiles without errors"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # TASK 4: Add Contact Link to Navbar
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: task-navbar-contact-link
+    title: "Add 'Contact' link to Navbar (desktop + mobile)"
+    description: >
+      Add a "Contact" link to the Navbar component in both desktop and mobile
+      layouts. The link should navigate to "/contact". Follow the exact same
+      pattern as the existing FAQ link:
+
+      **Desktop (hidden md:flex div):**
+      Add <Link href="/contact"> between the FAQ link and the Featured Shelves
+      map. Apply the navLinkClass("/contact") for active/inactive styling.
+      The active state should check `pathname === "/contact"`.
+
+      **Mobile (dropdown):**
+      Add <Link href="/contact"> between the FAQ link and the Featured Shelves
+      map, using the same className pattern: py-3 border-b border-surface-100
+      plus navLinkClass. Include onClick={() => setMenuOpen(false)}.
+
+      **Active state:**
+      Update the isActive function to handle "/contact" the same way as other
+      route-based links (return pathname === href). No scroll-spy needed
+      since Contact is a standalone page, not a homepage anchor section.
+
+      **Order:** FAQ → Contact → Featured Shelves
+    wave: 1
+    agent: gem-implementer
+    prototype: false
+    priority: high
+    status: pending
+    covers:
+      - navbar-modification
+      - navigation
+    dependencies: []
+    conflicts_with: []
+    context_files:
+      - path: src/components/Navbar.tsx
+        description: "The Navbar component to modify — contains desktop link cluster and mobile dropdown"
+      - path: src/utils/getStoreUrl.ts
+        description: "Store URL helper — may be referenced in Navbar but not needed for Contact link"
+    estimated_effort: small
+    flags:
+      flaky: false
+      retries_used: 0
+      requires_design_validation: false
+    acceptance_criteria:
+      - "Desktop Navbar shows 'Contact' link between FAQ and Featured Shelves."
+      - "Mobile dropdown shows 'Contact' link between FAQ and Featured Shelves."
+      - "Contact link uses navLinkClass for active/inactive styling."
+      - "isActive function handles '/contact' correctly (pathname === '/contact')."
+      - "On /contact page: Contact link is active (font-semibold text-text-primary)."
+      - "On other pages: Contact link is inactive (text-text-secondary hover:text-orange)."
+      - "Mobile link closes the menu on click (onClick={() => setMenuOpen(false)})."
+      - "No scroll-spy logic is added for Contact (it's a standalone page, not an anchor)."
+      - "The Navbar still works correctly on the homepage (FAQ scroll-spy unaffected)."
+    success_criteria:
+      - "Navigating to /contact shows the Contact link as active in both desktop and mobile nav."
+      - "Navigating to / shows the Contact link as inactive."
+      - "Mobile menu opens, shows Contact link, and tapping it closes the menu and navigates."
+      - "No TypeScript errors."
+      - "No regression in existing Navbar behavior (FAQ scroll-spy, Featured Shelves link, hamburger, Escape key)."
+    failure_modes:
+      - scenario: "Contact link breaks the desktop layout by exceeding the available space."
+        likelihood: low
+        impact: medium
+        mitigation: "The Navbar has 4 links total (FAQ, Contact, Featured Shelves, CTA) which fits well on desktop. If needed, reduce gap or padding."
+      - scenario: "Active state logic has a bug where Contact shows active on the homepage."
+        likelihood: low
+        impact: low
+        mitigation: "The isActive function uses pathname comparison for route-based links. Verify pathname !== '/contact' on homepage."
+      - scenario: "Forgot to add the mobile link, so Contact is missing from the hamburger menu."
+        likelihood: medium
+        impact: medium
+        mitigation: "Explicitly add the link in both the desktop <div> and the mobile dropdown <div>. Check both code paths."
+    tech_stack:
+      - "Next.js Pages Router (useRouter for pathname)"
+      - "TypeScript 5"
+      - "React 19"
+    test_coverage: null
+    diag: null
+    handoff:
+      do_not_reinvestigate:
+        - "navLinkClass function — already defined, reuses for Contact"
+        - "isActive function — already defined, add '/contact' case"
+        - "Desktop link pattern — <Link> inside hidden md:flex div with border-r separator"
+        - "Mobile link pattern — <Link> inside mobile dropdown with py-3 border-b"
+        - "Link order — FAQ → Contact → Featured Shelves"
+        - "No scroll-spy needed for Contact (different from FAQ which has anchor behavior)"
+      required_test_first: "N/A"
+      target_files:
+        - "src/components/Navbar.tsx"
+      minimal_change: "Add 2 <Link> elements (desktop + mobile) to Navbar.tsx. Update isActive if needed (it already handles route-based comparison). Do not restructure or reformat existing code."
+      acceptance_checks:
+        - "Navbar.tsx has a Contact <Link> in the desktop link div"
+        - "Navbar.tsx has a Contact <Link> in the mobile dropdown div"
+        - "Both links use navLinkClass('/contact')"
+        - "isActive returns pathname === '/contact' for the Contact link"
+        - "Mobile link has onClick={() => setMenuOpen(false)}"
+        - "TypeScript compiles without errors"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # TASK 5: Integration Verification
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: task-integration-verification
+    title: "Verify build, static export, and cross-page navigation"
+    description: >
+      Run `npm run build` to verify the project compiles cleanly. Confirm the
+      static export (output: 'export') produces contact.html in the out/
+      directory. Verify that all cross-references work:
+      - Navbar "Contact" link navigates to /contact
+      - /contact page renders the Contact component
+      - Form validation works (test with empty required fields)
+      - Email fallback mailto link is correct
+      - No console errors on page load
+      - No visual regressions on existing pages (homepage, /faq)
+      - The Navbar active states are correct on all pages
+    wave: 3
+    agent: gem-browser-tester
+    prototype: false
+    priority: medium
+    status: pending
+    covers:
+      - build-verification
+      - static-export-check
+      - navigation-testing
+      - regression-check
+    dependencies:
+      - task-contact-component
+      - task-contact-page
+      - task-navbar-contact-link
+    conflicts_with: []
+    context_files:
+      - path: next.config.ts
+        description: "Build configuration (output: 'export')"
+      - path: src/pages/contact.tsx
+        description: "New page to verify"
+      - path: src/components/Contact.tsx
+        description: "New component to verify"
+      - path: src/components/Navbar.tsx
+        description: "Modified component to verify"
+    estimated_effort: small
+    flags:
+      flaky: false
+      retries_used: 0
+      requires_design_validation: false
+    acceptance_criteria:
+      - "npm run build completes with exit code 0 and no errors."
+      - "contact.html exists in the out/ directory."
+      - "No TypeScript compilation errors."
+      - "No ESLint errors related to the new code."
+      - "All existing pages (/, /faq, /bookshelves if applicable) still build correctly."
+      - "Navbar shows Contact as active on /contact and inactive on other pages."
+    success_criteria:
+      - "Build passes: exit code 0, no errors."
+      - "Static export includes contact.html."
+      - "Contact page loads without console errors."
+      - "Form validation blocks empty required fields."
+      - "Mailto link href is correct."
+      - "No regression on existing pages."
+    failure_modes:
+      - scenario: "Build fails because Contact.tsx has a TypeScript error."
+        likelihood: medium
+        impact: high
+        mitigation: "Fix TypeScript errors in the source task, not in verification."
+      - scenario: "contact.html is missing from the static export."
+        likelihood: low
+        impact: high
+        mitigation: "Verify the file is in src/pages/ (Pages Router auto-discovers). Check next.config.ts for any page exclusions."
+      - scenario: "Navbar regression: FAQ scroll-spy breaks on homepage after adding Contact link."
+        likelihood: low
+        impact: medium
+        mitigation: "Test homepage scroll behavior and FAQ active state after the change."
+    tech_stack:
+      - "Next.js 16.2.1"
+      - "output: export"
+    test_coverage: null
+    diag: null
+    validation_matrix:
+      - scenario: "Build and static export"
+        steps:
+          - "Run npm run build"
+          - "Check exit code is 0"
+          - "Check out/contact.html exists"
+        expected_result: "Build passes, contact.html present in output"
+      - scenario: "Contact page loads correctly"
+        steps:
+          - "Navigate to /contact"
+          - "Verify Contact component renders"
+          - "Check console for errors"
+        expected_result: "Page renders without errors in console"
+      - scenario: "Form validation — empty required fields"
+        steps:
+          - "Navigate to /contact"
+          - "Leave Category and Message empty"
+          - "Click submit"
+        expected_result: "Form does not submit; validation error shown"
+      - scenario: "Navbar active states"
+        steps:
+          - "Navigate to / (homepage)"
+          - "Verify Contact is NOT active"
+          - "Navigate to /contact"
+          - "Verify Contact IS active"
+          - "Navigate to /faq"
+          - "Verify FAQ is active, Contact is NOT active"
+        expected_result: "Correct active states on all three pages"
+      - scenario: "Email fallback mailto link"
+        steps:
+          - "Navigate to /contact"
+          - "Locate the email fallback section"
+          - "Verify the mailto link href"
+        expected_result: "mailto:hello@cosycases.com"
+    handoff:
+      do_not_reinvestigate:
+        - "Build command — npm run build (which runs next build with output: export)"
+        - "Expected output directory — out/"
+        - "Expected page file — out/contact.html"
+      required_test_first: "N/A — verification task"
+      target_files:
+        - "src/pages/contact.tsx"
+        - "src/components/Contact.tsx"
+        - "src/components/Navbar.tsx"
+      minimal_change: "No code changes; verification only. If issues found, report back for replan."
+      acceptance_checks:
+        - "Build exit code 0"
+        - "out/contact.html exists"
+        - "No TypeScript or ESLint errors"
+        - "All verification scenarios pass"

@@ -78,6 +78,9 @@ export default function Navbar() {
               >
                 FAQ
               </Link>
+              <Link href="/contact" className={navLinkClass("/contact")}>
+                Contact
+              </Link>
               {NAV_LINKS.map(({ label, href }) => (
                 <Link key={label} href={href} className={navLinkClass(href)}>
                   {label}
@@ -151,6 +154,13 @@ export default function Navbar() {
                 className={`py-3 border-b border-surface-100 ${navLinkClass(pathname === "/" ? "#faq" : "/faq")}`}
               >
                 FAQ
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMenuOpen(false)}
+                className={`py-3 border-b border-surface-100 ${navLinkClass("/contact")}`}
+              >
+                Contact
               </Link>
               {NAV_LINKS.map(({ label, href }) => (
                 <Link
