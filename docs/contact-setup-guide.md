@@ -191,7 +191,7 @@ Run this command, replacing `YOUR_WEBHOOK_URL` with the URL from Step 4:
 
 ```bash
 curl -X POST \
-  -H "Content-Type: application/json" \
+  -H "Content-Type: text/plain" \
   -d '{"name":"Test User","email":"test@example.com","category":"Other","appVersion":"1.0","message":"This is a test submission from the setup guide."}' \
   YOUR_WEBHOOK_URL
 ```

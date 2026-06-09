@@ -2,7 +2,8 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
 
 /** Google Sheets webhook URL — replace this after deploying the Apps Script. */
-const WEBHOOK_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL";
+const WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbzTuFKnfAA_RY4jbngONnUk3sZ9ohOwEti1HGKASJa9Pfo-yMlK0UJ637dWd-lHqqHOXQ/exec";
 
 interface ContactFormData {
   name: string;
@@ -57,7 +58,7 @@ export default function Contact() {
   const [errors, setErrors] = useState<string[]>([]);
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -68,9 +69,12 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (WEBHOOK_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL") {
+    if (
+      WEBHOOK_URL ===
+      "https://script.google.com/macros/s/AKfycbzTuFKnfAA_RY4jbngONnUk3sZ9ohOwEti1HGKASJa9Pfo-yMlK0UJ637dWd-lHqqHOXQ/exec"
+    ) {
       console.warn(
-        "WEBHOOK_URL still contains the placeholder text. Please update it with your Google Apps Script webhook URL."
+        "WEBHOOK_URL still contains the placeholder text. Please update it with your Google Apps Script webhook URL.",
       );
     }
 
@@ -86,7 +90,7 @@ export default function Contact() {
     try {
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -253,12 +257,10 @@ export default function Contact() {
               onChange={handleChange}
               required={isRequired}
               aria-required="true"
-              className={inputClasses.concat(
-                " appearance-none bg-no-repeat"
-              )}
+              className={inputClasses.concat(" appearance-none bg-no-repeat")}
               style={{
                 backgroundImage:
-                  'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%238B8A86\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
+                  "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238B8A86' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e\")",
                 backgroundPosition: "right 0.75rem center",
                 backgroundSize: "1.25rem",
               }}
@@ -331,10 +333,10 @@ export default function Contact() {
             <p className="mt-3 text-text-secondary">
               You can also reach us directly at{" "}
               <a
-                href="mailto:hello@cosycases.com"
+                href="mailto:griffin@ciluffo.com"
                 className="text-[rgb(231_129_40)] font-medium hover:underline transition-colors"
               >
-                hello@cosycases.com
+                griffin@ciluffo.com
               </a>
             </p>
           </div>
