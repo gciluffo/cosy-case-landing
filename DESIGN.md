@@ -8,18 +8,18 @@ A warm, literary aesthetic. Think the glow of a reading lamp, aged paper, and wo
 
 ## Color Tokens
 
-All tokens live in the `@theme {}` block in `src/styles/globals.css`. Tailwind v4 auto-generates utility classes from them (e.g. `--color-sage` → `bg-sage`, `text-sage`, `border-sage`).
+All tokens live in the `@theme {}` block in `src/styles/globals.css`. Tailwind v4 auto-generates utility classes from them (e.g. `--color-orange` → `bg-orange`, `text-orange`, `border-orange`).
 
-### Primary Action — Shelf Sage
+### Primary Action — Cosy Orange
 
-| Token               | Value                          | Use                                                                                      |
-| ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `--color-sage`      | `rgb(72 112 93)` / `#48705D`   | **Only** primary action color: buttons, active states, links, icon fills, section labels |
-| `--color-sage-dark` | `rgb(155 195 175)` / `#9BC3AF` | Sage on dark backgrounds (AIFeature section)                                             |
-| `--color-sage-50`   | `rgb(240 247 243)`             | Lightest sage wash: icon container backgrounds, hover states                             |
-| `--color-sage-100`  | `rgb(216 236 225)`             | Sage tint: borders, dividers on light surfaces                                           |
+| Token                | Value                          | Use                                                                                      |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `--color-orange`     | `rgb(231 129 40)` / `#E78128`  | **Only** primary action color: buttons, active states, links, icon fills, section labels |
+| `--color-orange-dark`| `rgb(245 180 120)` / `#F5B478` | Orange on dark backgrounds (AIFeature section)                                           |
+| `--color-orange-50`  | `rgb(255 250 245)`             | Lightest orange wash: icon container backgrounds, hover states                           |
+| `--color-orange-100` | `rgb(255 242 229)`             | Orange tint: borders, dividers on light surfaces                                         |
 
-**Rule:** Sage is the one and only primary action color. Never use amber for buttons, CTAs, or active states.
+**Rule:** Orange is the one and only primary action color. Never use a different accent for buttons, CTAs, or active states.
 
 ### Delight Accent — Amber Page
 
@@ -29,7 +29,7 @@ All tokens live in the `@theme {}` block in `src/styles/globals.css`. Tailwind v
 | `--color-amber-50`  | `rgb(255 250 245)`            | Lightest amber tint                                                                     |
 | `--color-amber-100` | `rgb(255 242 229)`            | Light amber tint                                                                        |
 
-**Rule:** Amber is strictly a delight accent. It signals warmth and personality, not action. If something needs to be clicked, it should be sage.
+**Rule:** Amber is strictly a delight accent. It signals warmth and personality, not action. If something needs to be clicked, it should be orange.
 
 ### Surfaces — Warm Stone (no pure white, ever)
 
@@ -89,9 +89,9 @@ The page alternates warm surfaces to create visual rhythm. Never flatten consecu
 
 ## Active / Selected State Rules
 
-- **Use full-perimeter border** (`border border-[rgb(72_112_93)]`) — not a side-stripe
+- **Use full-perimeter border** (`border border-[rgb(231_129_40)]`) — not a side-stripe
 - `border-l-4` (side-stripe) is **absolutely banned** on any active or selected state
-- Pair the border with a subtle background tint (`bg-[rgb(240_247_243)]`) for warmth
+- Pair the border with a subtle background tint (`bg-[rgb(255_250_245)]`) for warmth
 
 ---
 
@@ -108,8 +108,8 @@ The page alternates warm surfaces to create visual rhythm. Never flatten consecu
 
 Both approaches are valid in this codebase:
 
-- `bg-sage` — use when no opacity modifier is needed and the class is unambiguous
-- `bg-[rgb(72_112_93)]` — use when applying opacity modifiers (`/90`) or for clarity in complex expressions
+- `bg-orange` — use when no opacity modifier is needed and the class is unambiguous
+- `bg-[rgb(231_129_40)]` — use when applying opacity modifiers (`/90`) or for clarity in complex expressions
 
 Be consistent with the surrounding code.
 
@@ -131,7 +131,7 @@ Hero text stagger: title at `Xms`, subheadline at `X+250ms`, badges at `X+450ms`
 ## Absolute Bans (do not do these, ever)
 
 1. **`bg-white` / `#fff` / pure white surfaces** — always use `surface-0` or `surface-50`
-2. **Amber as a primary action color** — sage only; amber is delight-only
+2. **Amber as a primary action color** — orange only; amber is delight-only
 3. **`border-l-4` side-stripe** on active/selected states — use full `border`
 4. **Identical N-card grids** — must have at least two tiers of visual treatment
 5. **Adding `tailwind.config.js`** — Tailwind v4 is CSS-first; all tokens go in `@theme {}`

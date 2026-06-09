@@ -32,13 +32,13 @@ Always read DESIGN.md before touching colors, spacing, or components. The design
 ### Tailwind v4 — critical difference from v3
 
 - All custom tokens live in the `@theme {}` block in `src/styles/globals.css`
-- `--color-sage` → generates `bg-sage`, `text-sage`, `border-sage`, etc.
+- `--color-orange` → generates `bg-orange`, `text-orange`, `border-orange`, etc.
 - There is **no** `tailwind.config.js` — do not create one
 - Do not use `theme()` or `@apply` with custom tokens; use the generated utility classes or inline `rgb()` values
 
 ### When inline rgb() is used vs. Tailwind class
 
-Components use `bg-[rgb(72_112_93)]` syntax when a token needs an opacity modifier or when the Tailwind class would be ambiguous. Both styles are correct; be consistent with surrounding code.
+Components use `bg-[rgb(231_129_40)]` syntax when a token needs an opacity modifier or when the Tailwind class would be ambiguous. Both styles are correct; be consistent with surrounding code.
 
 ---
 
@@ -128,7 +128,7 @@ The page deliberately alternates warm surfaces for visual rhythm. Do not flatten
 ## Common Pitfalls
 
 - **Never use pure white** (`bg-white`, `#fff`, `rgb(255 255 255)`) for any surface — use `surface-0` or `surface-50`
-- **Never use amber as a primary action color** — sage only. Amber is for delight moments (stars, badges, milestone icons, heart icon in footer)
+- **Never use amber as a primary action color** — orange only. Amber is for delight moments (stars, badges, milestone icons, heart icon in footer)
 - **Never use `border-l-4` side-stripe** on active/selected states — use full-perimeter `border` instead
 - **Never create an identical N-card grid** where all cards have the same chrome — break into primary/secondary tiers
 - The page wrapper in `index.tsx` must use `bg-surface-0`, not `bg-white`

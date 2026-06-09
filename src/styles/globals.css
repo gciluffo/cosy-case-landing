@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary action accent — Shelf Sage */
-  --color-sage: rgb(72 112 93); /* #48705D */
-  --color-sage-dark: rgb(155 195 175); /* #9BC3AF — sage on dark backgrounds */
-  --color-sage-50: rgb(240 247 243); /* lightest sage wash for icon bgs */
-  --color-sage-100: rgb(216 236 225); /* sage tint for borders/hover states */
+  /* Primary action accent — Cosy Orange */
+  --color-orange: rgb(231 129 40); /* #E78128 — primary orange */
+  --color-orange-dark: rgb(245 180 120); /* #F5B478 — orange on dark backgrounds */
+  --color-orange-50: rgb(255 250 245); /* lightest orange wash for icon bgs */
+  --color-orange-100: rgb(255 242 229); /* orange tint for borders/hover states */
 
   /* Delight accent — Amber Page (delight moments only: stars, badges, milestones) */
   --color-amber: rgb(231 129 40); /* #E78128 */

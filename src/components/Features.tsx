@@ -139,7 +139,7 @@ export default function Features() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
             Everything you need
           </span>
           <h2
@@ -161,7 +161,7 @@ export default function Features() {
               key={feature.title}
               className="bg-[rgb(252_250_246)] rounded-2xl p-8 border border-[rgb(219_218_215)]"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(240_247_243)] text-[rgb(72_112_93)] mb-5">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(255_250_245)] text-[rgb(231_129_40)] mb-5">
                 {feature.icon}
               </div>
               <h3
@@ -184,7 +184,7 @@ export default function Features() {
               key={feature.title}
               className="flex items-start gap-4 py-3 border-t border-[rgb(219_218_215)]"
             >
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[rgb(240_247_243)] text-[rgb(72_112_93)] flex items-center justify-center">
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[rgb(255_250_245)] text-[rgb(231_129_40)] flex items-center justify-center">
                 {feature.icon}
               </div>
               <div>

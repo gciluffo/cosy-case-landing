@@ -10,7 +10,7 @@ export default function AIFeature() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left — copy */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(155_195_175)] uppercase mb-3">
+            <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(245_180_120)] uppercase mb-3">
               AI-powered
             </span>
             <h2
@@ -18,7 +18,7 @@ export default function AIFeature() {
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Give every book a{" "}
-              <span className="text-[rgb(155_195_175)]">
+              <span className="text-[rgb(245_180_120)]">
                 spine worthy of your shelf
               </span>
             </h2>
@@ -65,7 +65,7 @@ export default function AIFeature() {
 
             <a
               href="#download"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[rgb(72_112_93)] text-white font-semibold hover:bg-[rgb(55_87_71)] transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[rgb(231_129_40)] text-white font-semibold hover:bg-[rgb(190_100_30)] transition-colors"
             >
               Try it free
               <svg
@@ -89,7 +89,7 @@ export default function AIFeature() {
               <div
                 aria-hidden
                 className="absolute inset-0 blur-3xl opacity-25 rounded-[40px]"
-                style={{ background: "rgb(72 112 93)" }}
+                style={{ background: "rgb(231 129 40)" }}
               />
               <div className="relative w-[260px] sm:w-[280px] aspect-[9/19] rounded-[36px] bg-[rgb(15_15_15)] shadow-2xl ring-1 ring-white/10 overflow-hidden p-[6px]">
                 <div className="relative w-full h-full rounded-[30px] overflow-hidden bg-black">

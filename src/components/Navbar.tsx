@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const NAV_LINKS = [
-  { label: "FAQ", href: "#faq" },
   { label: "Featured Shelves", href: "/bookshelves" },
 ];
 
@@ -44,7 +43,7 @@ export default function Navbar() {
   function navLinkClass(href: string) {
     return isActive(href)
       ? "text-sm font-semibold text-text-primary transition-colors"
-      : "text-sm font-medium text-text-secondary hover:text-sage transition-colors";
+      : "text-sm font-medium text-text-secondary hover:text-orange transition-colors";
   }
 
   return (
@@ -72,6 +71,13 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Desktop nav links — right-clustered, not floating center */}
             <div className="hidden md:flex items-center gap-6 pr-5 border-r border-surface-100">
+              {/* FAQ: scroll on homepage, navigate on other routes */}
+              <Link
+                href={pathname === "/" ? "#faq" : "/faq"}
+                className={navLinkClass(pathname === "/" ? "#faq" : "/faq")}
+              >
+                FAQ
+              </Link>
               {NAV_LINKS.map(({ label, href }) => (
                 <Link key={label} href={href} className={navLinkClass(href)}>
                   {label}
@@ -85,7 +91,7 @@ export default function Navbar() {
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-sage hover:bg-sage-50 transition-colors"
+              className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-text-secondary hover:text-orange hover:bg-orange-50 transition-colors"
             >
               {menuOpen ? (
                 <svg
@@ -119,7 +125,7 @@ export default function Navbar() {
               href={getStoreUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 rounded-full bg-sage text-white text-sm font-semibold hover:bg-[rgb(55_87_71)] transition-colors"
+              className="inline-flex items-center px-4 py-2 rounded-full bg-orange text-white text-sm font-semibold hover:bg-[rgb(190_100_30)] transition-colors"
             >
               <span className="sm:hidden">Download</span>
               <span className="hidden sm:inline">Download App</span>
@@ -138,6 +144,14 @@ export default function Navbar() {
         <div className="overflow-hidden">
           <div className="border-t border-surface-100 bg-surface-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col">
+              {/* FAQ: scroll on homepage, navigate on other routes */}
+              <Link
+                href={pathname === "/" ? "#faq" : "/faq"}
+                onClick={() => setMenuOpen(false)}
+                className={`py-3 border-b border-surface-100 ${navLinkClass(pathname === "/" ? "#faq" : "/faq")}`}
+              >
+                FAQ
+              </Link>
               {NAV_LINKS.map(({ label, href }) => (
                 <Link
                   key={label}

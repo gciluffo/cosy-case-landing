@@ -41,7 +41,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
           {q}
         </span>
         <span
-          className="flex-shrink-0 w-7 h-7 rounded-full bg-[rgb(240_247_243)] border border-[rgb(216_236_225)] flex items-center justify-center text-[rgb(72_112_93)] transition-transform duration-200"
+          className="flex-shrink-0 w-7 h-7 rounded-full bg-[rgb(255_250_245)] border border-[rgb(255_242_229)] flex items-center justify-center text-[rgb(231_129_40)] transition-transform duration-200"
           style={{ transform: open ? "rotate(45deg)" : "none" }}
           aria-hidden
         >
@@ -72,7 +72,7 @@ export default function FAQ() {
     <section id="faq" className="py-20 md:py-28 bg-[rgb(252_250_246)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
             Got questions?
           </span>
           <h2

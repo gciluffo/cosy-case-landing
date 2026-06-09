@@ -80,7 +80,7 @@ export default function Customization() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(72_112_93)] uppercase mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest text-[rgb(231_129_40)] uppercase mb-3">
             Make it yours
           </span>
           <h2
@@ -102,7 +102,7 @@ export default function Customization() {
               key={item.title}
               className="bg-[rgb(252_250_246)] rounded-2xl p-7 border border-[rgb(219_218_215)] hover:shadow-md transition-shadow"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(240_247_243)] border border-[rgb(216_236_225)] text-[rgb(72_112_93)] mb-5">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[rgb(255_250_245)] border border-[rgb(255_242_229)] text-[rgb(231_129_40)] mb-5">
                 {item.icon}
               </div>
               <h3
@@ -118,7 +118,7 @@ export default function Customization() {
                 {item.items.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[rgb(240_247_243)] text-[rgb(50_47_42)] border border-[rgb(155_195_175)]"
+                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[rgb(255_250_245)] text-[rgb(50_47_42)] border border-[rgb(245_180_120)]"
                   >
                     {tag}
                   </span>

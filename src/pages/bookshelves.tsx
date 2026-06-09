@@ -25,13 +25,13 @@ export default function FeaturedShelves() {
         <div className="max-w-md mx-auto px-6 text-center">
           {/* Shelf icon */}
           <div className="mb-8 flex justify-center">
-            <div className="w-16 h-16 rounded-2xl bg-sage-50 border border-sage-100 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center">
               <svg
                 width="28"
                 height="28"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="rgb(72 112 93)"
+                stroke="rgb(231 129 40)"
                 strokeWidth={1.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -44,7 +44,7 @@ export default function FeaturedShelves() {
             </div>
           </div>
 
-          <span className="inline-block text-xs font-semibold tracking-widest text-sage uppercase mb-4">
+          <span className="inline-block text-xs font-semibold tracking-widest text-orange uppercase mb-4">
             Coming soon
           </span>
 
@@ -65,7 +65,7 @@ export default function FeaturedShelves() {
               href={getStoreUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-5 py-2.5 rounded-full bg-sage text-white text-sm font-semibold hover:bg-[rgb(55_87_71)] transition-colors"
+              className="inline-flex items-center px-5 py-2.5 rounded-full bg-orange text-white text-sm font-semibold hover:bg-[rgb(190_100_30)] transition-colors"
             >
               Build your shelf
             </a>

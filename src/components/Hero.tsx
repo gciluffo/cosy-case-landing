@@ -476,7 +476,7 @@ export default function Hero() {
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full opacity-[0.12] blur-3xl"
-        style={{ background: "rgb(72 112 93)" }}
+        style={{ background: "rgb(231 129 40)" }}
       />
 
       {/* ── Mobile shelf (< sm, ≤ 639px) ─────────────────────────────── */}
