@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const NAV_LINKS = [
-  { label: "Featured Shelves", href: "/bookshelves" },
+  { label: "Featured Bookshelves", href: "/featured-bookshelves" },
 ];
 
 export default function Navbar() {
