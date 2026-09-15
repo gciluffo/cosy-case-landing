@@ -68,9 +68,10 @@ public/
 1. **Navbar** — sticky, `bg-[rgb(252_250_246)]/90` backdrop
 2. **Hero** — book spine wall animation + headline + store badges
 3. **BookshelfShowcase** — interactive phone mockup with feature tabs
-4. **AppReviews** — review cards, star ratings
-5. **PromoBanner** — final conversion CTA
-6. **Footer**
+4. **FeaturedShelvesRail** — edge-masked auto-scrolling marquee of real reader shelves linking to `/featured-bookshelves`
+5. **AppReviews** — review cards, star ratings
+6. **PromoBanner** — final conversion CTA
+7. **Footer**
 
 **Not currently rendered** (components exist, fully styled, ready to re-enable):
 
@@ -98,6 +99,7 @@ Defined in `src/styles/globals.css`:
 - `.wave-spine` — `waveSettle` keyframe: staggered bounce-settle for Hero spine images
 - `.hero-title` — `fadeInUp` keyframe: used on hero headline, subheadline, and store badges (each with an increasing `animationDelay`)
 - `.hero-scroll-cue` — `fadeInUp` with 2s delay
+- `.marquee` — `marquee` keyframe: seamless -50% horizontal loop for FeaturedShelvesRail; pauses on hover/focus, disabled under `prefers-reduced-motion`
 
 ---
 

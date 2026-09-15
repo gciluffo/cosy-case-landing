@@ -1,13 +1,19 @@
 import Head from "next/head";
+import { join } from "node:path";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import BookshelfShowcase from "@/components/BookshelfShowcase";
+import FeaturedShelvesRail from "@/components/FeaturedShelvesRail";
 import Features from "@/components/Features";
 import AppReviews from "@/components/AppReviews";
 import PromoBanner from "@/components/PromoBanner";
 import Footer from "@/components/Footer";
 import FAQ from "@/components/FAQ";
-import type { GetStaticProps } from "next";
+import {
+  listFeaturedShelves,
+  type FeaturedShelf,
+} from "@/utils/featuredShelves";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 const SITE_URL = "https://cosycases.com";
 const APP_STORE_URL = "https://apps.apple.com/app/apple-store/id6747253733";
@@ -97,11 +103,20 @@ const websiteSchema = {
   url: SITE_URL,
 };
 
-export const getStaticProps = (async () => {
-  return { props: {} };
-}) satisfies GetStaticProps;
+const FEATURED_SHELVES_LIMIT = 6;
 
-export default function Home() {
+export const getStaticProps = (async () => {
+  const shelves = await listFeaturedShelves(
+    join(process.cwd(), "public", "featured-bookshelves"),
+  );
+  return {
+    props: { shelves: shelves.slice(0, FEATURED_SHELVES_LIMIT) },
+  };
+}) satisfies GetStaticProps<{ shelves: FeaturedShelf[] }>;
+
+export default function Home({
+  shelves,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
@@ -167,7 +182,8 @@ export default function Home() {
         <main>
           <Hero />
           <BookshelfShowcase />
-          <Features />
+          <FeaturedShelvesRail shelves={shelves} />
+          {/* <Features /> */}
           <AppReviews />
           <PromoBanner />
           <FAQ />

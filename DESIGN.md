@@ -81,6 +81,7 @@ The page alternates warm surfaces to create visual rhythm. Never flatten consecu
 | Navbar            | `surface-0` at 90% opacity + blur                   | Sticky; blurs content underneath                                       |
 | Hero              | `surface-0`                                         | Unified light zone — start of page                                     |
 | BookshelfShowcase | `surface-0`                                         | Intentionally same as Hero; the two sections merge into one light band |
+| FeaturedShelvesRail | `surface-0`                                       | Continues the light band; edge-masked marquee, no tonal break          |
 | AppReviews        | `surface-50`                                        | First tonal break after the light zone                                 |
 | PromoBanner       | `surface-dark` with pattern + `bg-black/50` overlay | Dark CTA section                                                       |
 | Footer            | `surface-dark`                                      | Continues dark zone from PromoBanner                                   |
@@ -122,6 +123,7 @@ Be consistent with the surrounding code.
 | `.wave-spine`      | `waveSettle` — bounce-settle with overshoot | Applied to each Hero spine image; staggered via inline `animationDelay` |
 | `.hero-title`      | `fadeInUp` — 0.7s ease-out from 16px below  | Hero headline, subheadline, store badges — each with increasing delay   |
 | `.hero-scroll-cue` | `fadeInUp` — 0.6s, 2s delay                 | Scroll-down indicator at bottom of Hero                                 |
+| `.marquee`         | `marquee` — translateX 0 → -50%, linear loop | FeaturedShelvesRail; pauses on hover/focus, disabled under `prefers-reduced-motion` (falls back to a horizontal scroller) |
 
 Spine animation delay formula: `index * 55ms` (gives a left-to-right wave).
 Hero text stagger: title at `Xms`, subheadline at `X+250ms`, badges at `X+450ms`.

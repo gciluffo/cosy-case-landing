@@ -122,3 +122,35 @@ html {
   animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: 2s;
 }
+
+/* ── Featured shelves marquee ── */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee var(--marquee-duration, 55s) linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover,
+.marquee:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+  .marquee-viewport {
+    overflow-x: auto;
+  }
+  .marquee-clone {
+    display: none;
+  }
+}
