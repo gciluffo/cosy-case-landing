@@ -9,6 +9,24 @@ import {
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 const SITE_URL = "https://cosycases.com";
+const CANONICAL_URL = `${SITE_URL}/featured-bookshelves/`;
+const SEO_TITLE = "Featured Bookshelves – CosyCase Reader Shelves";
+const SEO_DESCRIPTION =
+  "Browse real digital bookshelves built by CosyCase readers — full shelf layouts, real spines, and cosy reading corners.";
+const OG_IMAGE = `${SITE_URL}/screenshots/bookshelf.png`;
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: SEO_TITLE,
+  description: SEO_DESCRIPTION,
+  url: CANONICAL_URL,
+  isPartOf: {
+    "@type": "WebSite",
+    name: "CosyCase",
+    url: SITE_URL,
+  },
+};
 
 export const getStaticProps = (async () => {
   const shelves = await listFeaturedShelves(
@@ -59,13 +77,33 @@ export default function FeaturedBookshelves({
   return (
     <>
       <Head>
-        <title>Featured Bookshelves – CosyCase</title>
+        <title>{SEO_TITLE}</title>
+        <meta name="description" content={SEO_DESCRIPTION} />
+        <link rel="canonical" href={CANONICAL_URL} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="CosyCase" />
+        <meta property="og:title" content={SEO_TITLE} key="og:title" />
         <meta
-          name="description"
-          content="Browse real digital bookshelves built by CosyCase readers — full shelf layouts, real spines, and cosy reading corners."
+          property="og:description"
+          content={SEO_DESCRIPTION}
+          key="og:description"
         />
-        <link rel="canonical" href={`${SITE_URL}/featured-bookshelves/`} />
-        <meta name="robots" content="noindex" />
+        <meta property="og:url" content={CANONICAL_URL} />
+        <meta property="og:image" content={OG_IMAGE} key="og:image" />
+        <meta
+          property="og:image:alt"
+          content="CosyCase digital bookshelf app screenshot"
+        />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(collectionPageSchema),
+          }}
+        />
       </Head>
       <div
         className="bg-surface-0 min-h-screen"
