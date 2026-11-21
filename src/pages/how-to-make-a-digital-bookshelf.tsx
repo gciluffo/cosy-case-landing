@@ -180,10 +180,10 @@ function GuideArticle() {
           Build an ebook shelf without scanning
         </h3>
         <p>
-          Search for a book in{" "}
-          <strong>Add Books</strong>, select the right match, and add it to your
-          shelf. This works for ebooks and audiobooks, too. CosyCase tracks the
-          titles; it doesn&rsquo;t import the ebook or audio files themselves.
+          Search for a book in <strong>Add Books</strong>, select the right
+          match, and add it to your shelf. This works for ebooks and audiobooks,
+          too. CosyCase tracks the titles; it doesn&rsquo;t import the ebook or
+          audio files themselves.
         </p>
         <p>
           Already tracking your reading in Goodreads or StoryGraph? Export your
@@ -233,6 +233,9 @@ function GuideArticle() {
               alt="CosyCase reading tracker showing books marked as reading and finished"
               className={appScreenClass}
             />
+            <figcaption className="mx-auto mt-3 max-w-72 text-sm leading-relaxed text-charcoal">
+              Keep track of your progress.
+            </figcaption>
           </figure>
         }
       >
@@ -252,6 +255,9 @@ function GuideArticle() {
               alt="CosyCase share button on a digital bookshelf"
               className={appScreenClass}
             />
+            <figcaption className="mx-auto mt-3 max-w-72 text-sm leading-relaxed text-charcoal">
+              Keep up to date with your friends' shelves.
+            </figcaption>
           </figure>
         }
       >
