@@ -91,7 +91,10 @@ export default function FeaturedShelvesRail({
             "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
         }}
       >
-        <div className="marquee flex w-max">
+        <div
+          className="marquee flex w-max"
+          style={{ "--marquee-duration": `${shelves.length * (55 / 6)}s` } as React.CSSProperties}
+        >
           <TileSet shelves={shelves} />
           <TileSet shelves={shelves} clone />
         </div>
@@ -100,7 +103,15 @@ export default function FeaturedShelvesRail({
       <div className="text-center mt-10 sm:mt-12">
         <Link
           href="/featured-bookshelves"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-orange hover:text-[rgb(190_100_30)] transition-colors"
+          className="inline-flex items-center gap-1.5 font-semibold text-charcoal transition-colors"
+          style={{ cursor: "pointer" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "rgb(231 129 40)";
+            e.currentTarget.style.cursor = "pointer";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "";
+          }}
         >
           Browse all featured shelves
           <svg
@@ -113,6 +124,7 @@ export default function FeaturedShelvesRail({
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden
+            style={{ cursor: "pointer", pointerEvents: "none" }}
           >
             <path d="M3 8h10M9 4l4 4-4 4" />
           </svg>

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <a href="#" className="flex items-center gap-2">
             {/* <Image
-              src="/mascot.png"
+              src="/mascot.webp"
               alt="CosyCase mascot"
               width={24}
               height={24}

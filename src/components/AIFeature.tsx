@@ -94,7 +94,7 @@ export default function AIFeature() {
               <div className="relative w-[260px] sm:w-[280px] aspect-[9/19] rounded-[36px] bg-[rgb(15_15_15)] shadow-2xl ring-1 ring-white/10 overflow-hidden p-[6px]">
                 <div className="relative w-full h-full rounded-[30px] overflow-hidden bg-black">
                   <Image
-                    src="/screenshots/create-spine.png"
+                    src="/screenshots/create-spine.webp"
                     alt="AI spine art generation screen"
                     fill
                     className="object-cover object-top"

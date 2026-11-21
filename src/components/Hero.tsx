@@ -517,14 +517,14 @@ export default function Hero() {
             animationDelay: `${titleDelay}ms`,
           }}
         >
-          A home for every book you love.
+          A digital bookshelf for every book you love.
         </h1>
         <p
           className="hero-title mt-3 text-sm sm:text-base text-[rgb(139_138_134)] tracking-wide"
           style={{ animationDelay: `${titleDelay + 250}ms` }}
         >
-          The book tracker and reading list app that looks as good as your real
-          shelf.
+          See your books lined up by their real spines. Make a shelf for what
+          you own, what you&rsquo;ve read, or what you want to read next.
         </p>
         <div
           className="hero-title mt-6 flex items-center justify-center gap-3 flex-wrap"

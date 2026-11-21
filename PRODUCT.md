@@ -60,7 +60,7 @@ Also exported from `src/utils/getStoreUrl.ts`:
 
 **Site URL:** `https://cosycases.com`
 
-**OG image:** `/screenshots/bookshelf.png`
+**OG image:** `/og-image.png`
 
 ---
 

@@ -1,7 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { join } from "node:path";
 import Navbar from "@/components/Navbar";
+import PromoBanner from "@/components/PromoBanner";
 import {
   listFeaturedShelves,
   type FeaturedShelf,
@@ -13,7 +15,7 @@ const CANONICAL_URL = `${SITE_URL}/featured-bookshelves/`;
 const SEO_TITLE = "Featured Bookshelves – CosyCase Reader Shelves";
 const SEO_DESCRIPTION =
   "Browse real digital bookshelves built by CosyCase readers — full shelf layouts, real spines, and cosy reading corners.";
-const OG_IMAGE = `${SITE_URL}/screenshots/bookshelf.png`;
+const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 const collectionPageSchema = {
   "@context": "https://schema.org",
@@ -92,9 +94,12 @@ export default function FeaturedBookshelves({
         />
         <meta property="og:url" content={CANONICAL_URL} />
         <meta property="og:image" content={OG_IMAGE} key="og:image" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
         <meta
           property="og:image:alt"
-          content="CosyCase digital bookshelf app screenshot"
+          content="CosyCase digital bookshelf and book tracker app"
         />
 
         {/* JSON-LD Structured Data */}
@@ -147,7 +152,38 @@ export default function FeaturedBookshelves({
                 ))}
               </div>
             )}
+            <p className="mt-8 text-center">
+              <Link
+                href="/how-to-make-a-digital-bookshelf/"
+                className="inline-flex items-center gap-1.5 font-semibold text-charcoal transition-colors"
+                style={{ cursor: "pointer" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "rgb(231 129 40)";
+                  e.currentTarget.style.cursor = "pointer";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "";
+                }}
+              >
+                Learn how to make a digital bookshelf
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                  style={{ cursor: "pointer", pointerEvents: "none" }}
+                >
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </Link>
+            </p>
           </div>
+          <PromoBanner heading="Make a shelf like these." />
         </main>
       </div>
     </>

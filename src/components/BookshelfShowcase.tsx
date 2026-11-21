@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
 const FEATURES = [
@@ -11,7 +12,7 @@ const FEATURES = [
       "Track reading, finished, and want-to-read lists",
       "Arrange books in any order you like",
     ],
-    screenshot: "/screenshots/bookshelf.png",
+    screenshot: "/screenshots/bookshelf.webp",
     alt: "CosyCase digital bookshelf",
   },
   {
@@ -23,19 +24,19 @@ const FEATURES = [
       "We have over 40 thousand spine images and counting",
       "AI-generated art tailored to genre and title",
     ],
-    screenshot: "/screenshots/create-spine.png",
+    screenshot: "/screenshots/create-spine.webp",
     alt: "CosyCase AI spine creation",
   },
   {
     label: "Bulk Import",
     heading: "Move your whole library in one snap",
-    body: "Point your camera at your physical bookshelf and CosyCase identifies every book automatically. Select what you want and import it all at once — no typing, no searching.",
+    body: "Take a photo of your physical bookshelf and CosyCase looks for the books it can recognize. Review the matches and import the ones you want together.",
     bullets: [
       "AI scans and identifies books from a photo",
       "Select and bulk-import in seconds",
       "Saves hours of manual entry",
     ],
-    screenshot: "/screenshots/bulk-import.png",
+    screenshot: "/screenshots/bulk-import.webp",
     alt: "CosyCase bulk import from shelf photo",
   },
   {
@@ -47,7 +48,7 @@ const FEATURES = [
       "Earn badges for reading milestones",
       "Unlock cozy collectables and shelf decor",
     ],
-    screenshot: "/screenshots/sharing.png",
+    screenshot: "/screenshots/sharing.webp",
     alt: "CosyCase sharing and community",
   },
 ];
@@ -119,8 +120,7 @@ export default function BookshelfShowcase() {
             className="text-3xl sm:text-4xl font-bold text-[rgb(36_36_33)] leading-tight"
             style={{ fontFamily: "var(--font-heading)" }}
           >
-            The book tracking app that&apos;s{" "}
-            <em className="not-italic text-[rgb(231_129_40)]">actually fun!</em>
+            See what your digital bookshelf can look like.
           </h2>
         </div>
 
@@ -189,6 +189,16 @@ export default function BookshelfShowcase() {
                 </button>
               );
             })}
+            <p className="px-6 pt-4 text-sm text-charcoal">
+              Ready to scan your shelves?{" "}
+              <Link
+                href="/how-to-make-a-digital-bookshelf/"
+                className="font-semibold underline decoration-orange decoration-2 underline-offset-4"
+              >
+                Learn how to make a digital bookshelf
+              </Link>
+              .
+            </p>
           </div>
 
           {/* Right — phone mockup, vertically centered by parent items-center */}

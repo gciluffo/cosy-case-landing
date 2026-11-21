@@ -50,14 +50,22 @@ src/
   pages/
     index.tsx         # Main landing page — controls which sections render
     faq.tsx           # Standalone FAQ page
+    contact.tsx       # Standalone contact page
+    featured-bookshelves.tsx  # Reader shelf gallery (CollectionPage)
     _app.tsx / _document.tsx
   styles/
     globals.css       # Tailwind @theme tokens + global animations
   utils/
     getStoreUrl.ts    # UA-sniffing store URL helper + exported constants
+    featuredShelves.ts # Build-time reader of public/featured-bookshelves
+    faq.ts            # FAQ copy + FAQPage schema (single source of truth)
+scripts/
+  generate-og-image.mjs # `npm run og:image` → public/og-image.png (1200x630)
 public/
   spines/             # Book spine JPGs used by Hero.tsx bookshelf
-  screenshots/        # App screenshots used in BookshelfShowcase
+  screenshots/        # App screenshots (webp) used in BookshelfShowcase
+  featured-bookshelves/ # Reader shelf images (webp) for the gallery + homepage rail
+  og-image.png        # 1200x630 social share image (generated)
   shelves/            # Shelf background images
 ```
 
@@ -71,13 +79,13 @@ public/
 4. **FeaturedShelvesRail** — edge-masked auto-scrolling marquee of real reader shelves linking to `/featured-bookshelves`
 5. **AppReviews** — review cards, star ratings
 6. **PromoBanner** — final conversion CTA
-7. **Footer**
+7. **FAQ** — accordion FAQ with `FAQPage` structured data
+8. **Footer**
 
 **Not currently rendered** (components exist, fully styled, ready to re-enable):
 
 - `Features.tsx` — two-tier feature layout (primary cards + secondary rows)
 - `Customization.tsx`
-- `FAQ.tsx` — has structured data value; consider re-enabling for SEO
 
 ---
 
@@ -121,8 +129,9 @@ The page deliberately alternates warm surfaces for visual rhythm. Do not flatten
 ## SEO
 
 - Site URL: `https://cosycases.com`
-- OG image: `/screenshots/bookshelf.png`
-- Structured data in `index.tsx`: `SoftwareApplication` schema + `FAQPage` schema (always keep both present even if FAQ section is not visible)
+- OG image: `/og-image.png` (1200x630, regenerate with `npm run og:image`)
+- Structured data: `SoftwareApplication` + `WebSite` in `index.tsx`; `FAQPage` from `src/utils/faq.ts` on both `/` and `/faq/` (keep on both, even if the FAQ section is not visible); `CollectionPage` on `/featured-bookshelves/`
+- Every page needs exactly one `<h1>`; `/faq/` and `/contact/` render their own page header above the reused section component
 - Page `<title>`: `CosyCase – Digital Bookshelf & Book Tracker App`
 
 ---
