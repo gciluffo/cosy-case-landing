@@ -560,31 +560,6 @@ export default function Hero() {
           </a>
         </div>
       </div>
-
-      {/* ── Scroll cue ─────────────────────────────────────────────────── */}
-      <div
-        className="hero-scroll-cue absolute bottom-8 flex flex-col items-center gap-1.5 opacity-0"
-        aria-hidden
-      >
-        <span className="text-xs tracking-widest uppercase text-[rgb(180_178_175)]">
-          scroll
-        </span>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          className="text-[rgb(180_178_175)]"
-        >
-          <path
-            d="M8 3v10M3 9l5 5 5-5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
     </section>
   );
 }
